@@ -116,7 +116,7 @@ const Page = () => {
           </div>
 
           <div
-              // onClick={() => openModal()}
+              onClick={() => router.push('/ai/questionnaire')}
               className="flex items-center justify-center p-1 px-2 bg-gray-300 rounded-lg  text-gray-700 cursor-pointer
           transition-transform transform hover:scale-105"
           >
