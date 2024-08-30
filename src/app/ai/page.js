@@ -220,7 +220,7 @@ const Page = () => {
         form.onValueChanges = () => {
             updateOrderSummary();
         };
-    }, []);
+    }, [router]);
 
     return (
         <div className={'flex items-center justify-center w-full mt-20'}>

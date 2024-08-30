@@ -215,13 +215,19 @@ const Page = () => {
       router.push('/ai/editor');
     };
 
-    document.querySelector('#plannerQuestionnaire').addEventListener('submit', handleSubmit);
+    const formElement = document.querySelector('#plannerQuestionnaire');
+    formElement.addEventListener('submit', handleSubmit);
 
     updateOrderSummary();
     form.onValueChanges = () => {
       updateOrderSummary();
     };
-  }, []);
+
+    // Cleanup function to remove event listener
+    return () => {
+      formElement.removeEventListener('submit', handleSubmit);
+    };
+  }, [router]);
 
   return (
       <div className={'flex items-center justify-center w-full mt-20'}>
