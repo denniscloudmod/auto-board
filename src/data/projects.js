@@ -1,0 +1,65 @@
+export const aiProjects = [
+    {
+        "id": 1,
+        "projectName": "Example Project Name",
+        "owner": "Jim Brady",
+        "createdAt": "25/08/2024",
+        "lastUpdated": "25/08/2024",
+    },
+    {
+        "id": 2,
+        "projectName": "AI Development",
+        "owner": "Alice Johnson",
+        "createdAt": "01/09/2024",
+        "lastUpdated": "02/09/2024",
+    },
+    {
+        "id": 3,
+        "projectName": "Website Redesign",
+        "owner": "Bob Smith",
+        "createdAt": "15/08/2024",
+        "lastUpdated": "20/08/2024",
+    },
+    {
+        "id": 4,
+        "projectName": "Mobile App Launch",
+        "owner": "Carol White",
+        "createdAt": "10/07/2024",
+        "lastUpdated": "12/07/2024",
+    },
+    {
+        "id": 5,
+        "projectName": "Cloud Migration",
+        "owner": "David Brown",
+        "createdAt": "05/06/2024",
+        "lastUpdated": "06/06/2024",
+    },
+    {
+        "id": 6,
+        "projectName": "Data Analysis",
+        "owner": "Eve Davis",
+        "createdAt": "20/05/2024",
+        "lastUpdated": "22/05/2024",
+    },
+    {
+        "id": 7,
+        "projectName": "Cybersecurity Enhancement",
+        "owner": "Frank Wilson",
+        "createdAt": "30/04/2024",
+        "lastUpdated": "01/05/2024",
+    },
+    {
+        "id": 8,
+        "projectName": "Marketing Campaign",
+        "owner": "Grace Lee",
+        "createdAt": "25/03/2024",
+        "lastUpdated": "27/03/2024",
+    },
+    {
+        "id": 9,
+        "projectName": "Product Launch",
+        "owner": "Hank Green",
+        "createdAt": "15/02/2024",
+        "lastUpdated": "17/02/2024",
+    }
+];

@@ -1,14 +1,10 @@
-'use client';
+import React from "react";
+import QuestionnaireForm from "@/app/project-planner/_components/QuestionnaireForm";
 
-import React, { useEffect } from "react";
-import { useRouter } from 'next/navigation';
-import 'smart-webcomponents-react/source/modules/smart.form';
-import 'smart-webcomponents-react/source/modules/smart.datetimepicker';
-import 'smart-webcomponents-react/source/modules/smart.dropdownlist';
-import 'smart-webcomponents-react/source/modules/smart.input';
-import 'smart-webcomponents-react/source/modules/smart.maskedtextbox';
-import 'smart-webcomponents-react/source/styles/smart.default.css';
-import QuestionnaireForm from "@/components/forms/QuestionnaireForm";
+export const metadata = {
+    title: 'AI Project Planner Questionnaire',
+    description: 'Answer a few questions and let the AI generate a project plan for you.'
+};
 
 const Page = () => {
   return (

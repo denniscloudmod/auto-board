@@ -5,8 +5,8 @@ import {Toaster} from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Auto Board",
-  description: "Auto Board Kanban",
+  title: "Auto Boards - Project Planner",
+  description: "Auto Boards - Project Plans",
 };
 
 export default function RootLayout({ children }) {
