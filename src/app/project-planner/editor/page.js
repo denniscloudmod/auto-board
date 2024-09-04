@@ -78,7 +78,11 @@ const Page = () => {
         const data = localStorage.getItem('plannerQuestionnaire');
         if (data) {
             const parsedData = JSON.parse(data);
-            setProductsData(parsedData.orderSummary.order.products);
+            console.log("parsedData", parsedData.plannerQuestionnaireData)
+            const htmlContent = parsedData.plannerQuestionnaireData.map(item =>
+                `<p style="margin-bottom: 1rem"><strong>${item.question}</strong> <br> ${item.answer}</p>`
+            ).join('');
+            setProductsData(htmlContent);
         }
     }, []);
 

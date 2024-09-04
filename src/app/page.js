@@ -116,7 +116,7 @@ const Page = () => {
           </div>
 
           <div
-              onClick={() => router.push('/ai/questionnaire')}
+              onClick={() => router.push('/project-planner/questionnaire')}
               className="flex items-center justify-center p-1 px-2 bg-gray-300 rounded-lg  text-gray-700 cursor-pointer
           transition-transform transform hover:scale-105"
           >
