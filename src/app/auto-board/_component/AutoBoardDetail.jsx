@@ -1,12 +1,14 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Kanban from "smart-webcomponents-react/kanban";
 import 'smart-webcomponents-react/source/styles/smart.default.css'
 import {ChevronLeftIcon} from "@heroicons/react/16/solid";
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
-const BoardCreateList = ({ boardId }) => {
+const AutoBoardDetail = ({ boardId }) => {
     const router = useRouter();
     const [users, setUsers] = useState([
         {
@@ -84,9 +86,9 @@ const BoardCreateList = ({ boardId }) => {
     return (
         <div className="relative w-full h-screen" style={{backgroundColor: color, opacity: 0.8}}>
 
-            <button className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} onClick={() => router.push('/')}>
-                <ChevronLeftIcon className="h-6 w-6"/> <span>Back</span>
-            </button>
+            <Button asChild className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} >
+                 <Link href={'/auto-board'}> <ChevronLeftIcon className="h-4 w-4"/> Back</Link>
+            </Button>
 
 
             <div className={'w-[80%] mx-auto'}>
@@ -140,4 +142,4 @@ const BoardCreateList = ({ boardId }) => {
     );
 };
 
-export default BoardCreateList;
+export default AutoBoardDetail;

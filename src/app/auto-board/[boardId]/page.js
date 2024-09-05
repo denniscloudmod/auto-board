@@ -1,8 +1,8 @@
-import BoardCreateList from "@/app/auto-board/_component/BoardCreateList";
+import AutoBoardDetail from "@/app/auto-board/_component/AutoBoardDetail";
 
 export const metadata = {
-    title: 'Auto Board',
-    description: 'Create a new board.'
+    title: `Auto Board | Board Detail`,
+    description: 'Board Detail for Auto Board'
 };
 
 const Page = ({params}) => {
@@ -12,7 +12,7 @@ const Page = ({params}) => {
 
 
   return (
-      <BoardCreateList boardId={boardId}/>
+      <AutoBoardDetail boardId={boardId}/>
   );
 };
 
