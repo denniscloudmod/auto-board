@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
-import { invokeBedrockAgent } from "@/actions/invoke-agent";
+// import { invokeBedrockAgent } from "@/actions/invoke-agent";
 
 const QuestionnaireForm = () => {
     const route = useRouter();
@@ -66,15 +66,15 @@ const QuestionnaireForm = () => {
         return `${randomAdjective} ${randomNoun}`;
     };
 
-    const handleSendMessage = async (input, sessionId) => {
-        try {
-            const response = await invokeBedrockAgent(input, sessionId);
-            console.log("response11", response);
-            return response.completion;
-        } catch (error) {
-            console.error('Error invoking Bedrock agent:', error);
-        }
-    }
+    // const handleSendMessage = async (input, sessionId) => {
+    //     try {
+    //         const response = await invokeBedrockAgent(input, sessionId);
+    //         console.log("response11", response);
+    //         return response.completion;
+    //     } catch (error) {
+    //         console.error('Error invoking Bedrock agent:', error);
+    //     }
+    // }
 
     const onSubmit = async (data) => {
         setIsLoading(true);
