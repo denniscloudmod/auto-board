@@ -10,7 +10,6 @@ const Page = ({params}) => {
 
   const { boardId } = params;
 
-
   return (
       <AutoBoardDetail boardId={boardId}/>
   );

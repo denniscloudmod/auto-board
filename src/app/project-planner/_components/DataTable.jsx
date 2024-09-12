@@ -1,29 +1,58 @@
 "use client"
 
-import {
-    ColumnDef,
-    flexRender,
-    getCoreRowModel,
-    useReactTable,
-} from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useEffect, useState } from "react";
 
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+const DataTable = ({ columns }) => {
+    // const [projects, setProjects] = useState([]);
+    //
+    // useEffect(() => {
+    //     const getProjectsFromLocalStorage = () => {
+    //         const data = localStorage.getItem('plannerQuestionnaires');
+    //         if (!data) {
+    //             return [];
+    //         }
+    //
+    //         const parsedData = JSON.parse(data);
+    //
+    //         return parsedData.map(project => ({
+    //             id: project.id,
+    //             projectName: project.projectName,
+    //             owner: project.owner.name,
+    //             createdAt: project.createdAt,
+    //             lastUpdated: project.lastUpdated
+    //         }));
+    //     };
+    //
+    //     const projectsData = getProjectsFromLocalStorage();
+    //     setProjects(projectsData);
+    //     console.log("projects2", projectsData);
+    //     console.log("projects3", projects);
+    // }, []);
 
+    const getProjectsFromLocalStorage =  () => {
+        const data = localStorage.getItem('plannerQuestionnaires');
+        if (!data) {
+            return [];
+        }
 
+        const parsedData = JSON.parse(data);
 
-const DataTable = ({ columns, data }) => {
+        return parsedData.map(project => ({
+            id: project.id,
+            projectName: project.projectName,
+            owner: project.owner.name,
+            createdAt: project.createdAt,
+            lastUpdated: project.lastUpdated
+        }));
+    };
+
     const table = useReactTable({
-        data,
+        data: getProjectsFromLocalStorage(),
         columns,
         getCoreRowModel: getCoreRowModel(),
-    })
+    });
 
     return (
         <div className="rounded-md border">
@@ -31,23 +60,21 @@ const DataTable = ({ columns, data }) => {
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                return (
-                                    <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )}
-                                    </TableHead>
-                                )
-                            })}
+                            {headerGroup.headers.map((header) => (
+                                <TableHead key={header.id}>
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
+                                </TableHead>
+                            ))}
                         </TableRow>
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows?.length ? (
+                    {table.getRowModel().rows && table.getRowModel().rows.length ? (
                         table.getRowModel().rows.map((row) => (
                             <TableRow
                                 key={row.id}
@@ -70,8 +97,7 @@ const DataTable = ({ columns, data }) => {
                 </TableBody>
             </Table>
         </div>
-    )
-}
+    );
+};
 
 export default DataTable;
-

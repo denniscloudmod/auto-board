@@ -25,7 +25,8 @@ const Page = async () => {
     return (
         <CreateListPlanner>
             <div className="container mx-auto py-10">
-                <DataTable columns={projectColumns} data={data}/>
+                <DataTable columns={projectColumns}/>
+                {/*<DataTable columns={projectColumns} data={data} />*/}
             </div>
         </CreateListPlanner>
     )
