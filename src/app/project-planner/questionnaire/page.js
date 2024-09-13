@@ -1,5 +1,7 @@
 import React from "react";
+import {invokeBedrockAgent} from "@/actions/invoke-agent";
 import QuestionnaireForm from "@/app/project-planner/_components/QuestionnaireForm";
+import Chat from "@/app/project-planner/_components/Chat";
 
 export const metadata = {
     title: 'AI Project Planner Questionnaire',

@@ -1,5 +1,4 @@
-import {invokeBedrockAgent1} from "@/actions/invoke-agent";
-import ChatPage from "@/app/project-planner/_components/Chat";
+import {invokeBedrockAgent} from "@/actions/invoke-agent";
 import Chat from "@/app/project-planner/_components/Chat";
 
 

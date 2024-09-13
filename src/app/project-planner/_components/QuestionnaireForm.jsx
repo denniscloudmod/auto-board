@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
-// import { invokeBedrockAgent } from "@/actions/invoke-agent";
+import { invokeBedrockAgent } from "@/actions/invoke-agent";
 
 const QuestionnaireForm = () => {
     const route = useRouter();
@@ -66,21 +66,27 @@ const QuestionnaireForm = () => {
         return `${randomAdjective} ${randomNoun}`;
     };
 
-    // const handleSendMessage = async (input, sessionId) => {
-    //     try {
-    //         const response = await invokeBedrockAgent(input, sessionId);
-    //         console.log("response11", response);
-    //         return response.completion;
-    //     } catch (error) {
-    //         console.error('Error invoking Bedrock agent:', error);
-    //     }
-    // }
+    const handleSendMessage = async (input, sessionId) => {
+        try {
+            const response = await invokeBedrockAgent(input, sessionId);
+            console.log("response11", response);
+            return response.completion;
+        } catch (error) {
+            // console.error('Error invoking Bedrock agent:', error);
+            toast({
+                title: "Error",
+                description: "Something went wrong, please try again later.",
+                variant: "destructive",
+            });
+            throw error;
+        }
+    }
 
     const onSubmit = async (data) => {
         setIsLoading(true);
 
         try {
-            // const sessionId = generateSessionId();
+            const sessionId = generateSessionId();
             const plannerQuestionnaireData = {
                 projectName: generateProjectName(),
                 id: generatePlannerQuestionnaireId(),
@@ -88,13 +94,13 @@ const QuestionnaireForm = () => {
                 createdAt: generateCreatedAt(),
                 lastUpdated: generateUpdatedAt(),
                 data: [
-                    { question: "Number of springs", answer:  data.numberofSprings },
-                    { question: "Type of tension control system", answer:  data.tensionControlSystemType },
-                    { question: "Safety features", answer:  data.safetyFeatures }
+                    // { question: "Number of springs", answer:  data.numberofSprings },
+                    // { question: "Type of tension control system", answer:  data.tensionControlSystemType },
+                    // { question: "Safety features", answer:  data.safetyFeatures }
 
-                    // { question: "Number of springs", answer: await handleSendMessage(data.numberofSprings, sessionId) },
-                    // { question: "Type of tension control system", answer: await handleSendMessage(data.tensionControlSystemType, sessionId) },
-                    // { question: "Safety features", answer: await handleSendMessage(data.safetyFeatures, sessionId) }
+                    { question: "How  many springs can you produce?", answer: await handleSendMessage(data.numberofSprings, sessionId) },
+                    { question: "What type of tension control system do you have?", answer: await handleSendMessage(data.tensionControlSystemType, sessionId) },
+                    { question: "Do you have safety features", answer: await handleSendMessage(data.safetyFeatures, sessionId) }
                 ]
             };
 
@@ -103,24 +109,16 @@ const QuestionnaireForm = () => {
 
             localStorage.setItem('plannerQuestionnaires', JSON.stringify(existingQuestionnaires));
             toast({
-                title: "Submitted successfully:",
-                description: `Questionnaires ${plannerQuestionnaireData.projectName} has been submitted successfully.`,
-                variant: "outline",
-                // description: (
-                //     <div className={'p-2 bg-green-500'}>
-                //         Questionnaires {plannerQuestionnaireData.projectName} has been submitted successfully.
-                //     </div>
-                // ),
-
-                // description: (
-                //     <div className="mt-2 w-[340px] rounded-md bg-slate-900 text-white">
-                //         {JSON.stringify(data, null, 2)}
-                //     </div>
-                // ),
+                // title: "Submitted successfully:",
+                description: (
+                    <div className={'p-2 bg-green-600 rounded text-white'}>
+                        Please wait while we generate the project plan for you.
+                    </div>
+                ),
             });
             console.log("Questionnaire data:", existingQuestionnaires);
-            route.push('/project-planner');
-            // route.push('/project-planner/editor');
+            // route.push('/project-planner');
+            route.push('/project-planner/editor?projectId=' + plannerQuestionnaireData.id);
         } catch (error) {
             console.error('Error saving questionnaire data:', error);
             toast({
@@ -201,7 +199,7 @@ const QuestionnaireForm = () => {
                         />
                     </div>
                     <Button disabled={isLoading} className={'mt-6'} type="submit">
-                        {isLoading && <Loader2 className={'w-4 h-4 animate-spin mr-2 '}/>}  Generate
+                        {isLoading && <Loader2 className={'w-4 h-4 animate-spin mr-2 '}/>}  {isLoading ? 'Generating...' : 'Generate Project Plan'}
                     </Button>
                 </form>
             </Form>
