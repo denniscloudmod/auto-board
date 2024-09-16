@@ -94,6 +94,7 @@ const AutoBoardDetail = ({ boardId }) => {
             <div className={'w-[80%] mx-auto'}>
                 <h1 className={'text-xl font-bold text-center py-12'}>{title}</h1>
                 <Kanban
+                    license={process.env.NEXT_PUBLIC_SMART_LICENSE_KEY}
                     id="projectKanban"
                     // dataSource={tasks}
                     columns={columns}

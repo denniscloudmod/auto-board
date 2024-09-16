@@ -79,7 +79,7 @@ const EditorForm = () => {
         <div className={'relative w-[90%] md:w-[70%] mx-auto my-20'}>
             <div className={'flex flex-col'}>
                 <div className={'relative'}>
-                    <Editor onReady={initEditor} ref={editorRef} id="editor" toolbarItems={toolbarItems}>
+                    <Editor license={process.env.NEXT_PUBLIC_SMART_LICENSE_KEY} onReady={initEditor} ref={editorRef} id="editor" toolbarItems={toolbarItems}>
                         <div dangerouslySetInnerHTML={{ __html: productsData }} />
                     </Editor>
                     <div className={'absolute bottom-4 left-1/2 -translate-x-1/2 border-2 p-2 rounded-3xl flex items-center w-[80%] bg-gray-100'}>
