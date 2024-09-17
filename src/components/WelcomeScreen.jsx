@@ -24,6 +24,9 @@ const WelcomeScreen = () => {
                         <Button asChild variant={'outline'} className={'border-2 hover:bg-gray-800 hover:text-white'}>
                              <Link href={'/project-planner/questionnaire'}> With AI <ChevronRight className={'ml-2 h-4 w-4'}/></Link>
                         </Button>
+                        {/*<Button asChild variant={'outline'} className={'border-2 hover:bg-gray-800 hover:text-white'}>*/}
+                        {/*     <Link href={'/my-editor'}> My Editor <ChevronRight className={'ml-2 h-4 w-4'}/></Link>*/}
+                        {/*</Button>*/}
                     </div>
                 </div>
             </div>

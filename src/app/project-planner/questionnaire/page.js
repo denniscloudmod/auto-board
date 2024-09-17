@@ -2,6 +2,7 @@ import React from "react";
 import {invokeBedrockAgent} from "@/actions/invoke-agent";
 import QuestionnaireForm from "@/app/project-planner/_components/QuestionnaireForm";
 import Chat from "@/app/project-planner/_components/Chat";
+import WorkSpaceBackButton from "@/components/WorkSpaceBackButton";
 
 export const metadata = {
     title: 'AI Project Planner Questionnaire',
@@ -10,9 +11,12 @@ export const metadata = {
 
 const Page = () => {
   return (
-      <div className={'flex items-center justify-center w-full mt-20'}>
-        <QuestionnaireForm/>
-      </div>
+      <>
+          <WorkSpaceBackButton/>
+          <div className={'flex items-center justify-center w-full mt-20'}>
+            <QuestionnaireForm/>
+          </div>
+      </>
   );
 };
 

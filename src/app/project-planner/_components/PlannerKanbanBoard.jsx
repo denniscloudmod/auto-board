@@ -74,6 +74,7 @@ const PlannerKanbanBoard = ({ boardId }) => {
 
     useEffect(() => {
         const data = localStorage.getItem('plannerQuestionnaires');
+
         if (data) {
             const parsedData = JSON.parse(data);
             const projectData = parsedData.find(project => project.id === boardId);
@@ -86,8 +87,6 @@ const PlannerKanbanBoard = ({ boardId }) => {
                 });
                 return;
             }
-            console.log("Project data:", projectData);
-
             // const htmlContent = projectData.data.map(item =>
             //     `<p style="margin-bottom: 1rem"><strong>${item.question}</strong> <br> ${item.answer}</p>`
             // ).join('');
@@ -101,24 +100,30 @@ const PlannerKanbanBoard = ({ boardId }) => {
 
     if (!board) return <div>Loading...</div>;
 
-    // const { title, columns, color } = board || {};
 
-    const columns = [
-        { label: 'To do', dataField: 'toDo' },
-        { label: 'In progress', dataField: 'inProgress' },
-        { label: 'Testing', dataField: 'testing' },
-        { label: 'Done', dataField: 'done' }
-    ]
+    // const columns = [
+    //     { label: 'To do', dataField: 'toDo' },
+    //     { label: 'In progress', dataField: 'inProgress' },
+    //     { label: 'Testing', dataField: 'testing' },
+    //     { label: 'Done', dataField: 'done' }
+    // ]
+    // const color = "#317cab";
 
+    const { projectName, kanbanBoard } = board || {};
 
-
-    const color = "#317cab";
-
-    const { projectName } = board || {};
+    // console.log("----------------------")
+    // console.log("board columns 1", kanbanBoard.columns)
+    // console.log("----------------------")
+    // console.log("board dataSource 1", kanbanBoard.dataSource)
+    // console.log("----------------------")
+    // console.log("board color 1", kanbanBoard.color)
+    // console.log("----------------------")
+    // console.log("board title 1", kanbanBoard.title)
+    // console.log("----------------------")
 
 
     return (
-        <div className="relative w-full h-screen" style={{backgroundColor: color, opacity: 0.8}}>
+        <div className="relative w-full h-screen" style={{backgroundColor: kanbanBoard.color, opacity: 0.8}}>
 
             <Button asChild className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} >
                  <Link href={'/project-planner'}> <ChevronLeftIcon className="h-4 w-4"/> Back</Link>
@@ -130,8 +135,8 @@ const PlannerKanbanBoard = ({ boardId }) => {
                 <Kanban
                     license={process.env.NEXT_PUBLIC_SMART_LICENSE_KEY}
                     id="projectKanban"
-                    // dataSource={tasks}
-                    columns={columns}
+                    dataSource={kanbanBoard.dataSource}
+                    columns={kanbanBoard.columns}
                     editable={true}
                     taskActions={true}
                     taskComments={true}

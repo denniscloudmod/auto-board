@@ -3,8 +3,9 @@
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {EyeIcon, PencilSquareIcon, PlusIcon} from "@heroicons/react/16/solid";
+import {ChevronLeftIcon, EyeIcon, PencilSquareIcon, PlusIcon} from "@heroicons/react/16/solid";
 import {Button} from "@/components/ui/button";
+import WorkSpaceBackButton from "@/components/WorkSpaceBackButton";
 
 const CreateListPlanner = ({children}) => {
     const [boards, setBoards] = useState([]);
@@ -83,19 +84,19 @@ const CreateListPlanner = ({children}) => {
 
 
     return (
-        <div className="w-1/2 mx-auto py-12 px-2">
-            <div className={'mb-12 flex items-center justify-between '}>
+        <div className="py-12 px-2">
+            <WorkSpaceBackButton/>
+            <div className={' w-1/3 mx-auto  mb-12 flex items-center justify-between '}>
                 <h1 className="text-2xl font-bold text-center">Project Planner</h1>
-                <Button
-                    asChild
-                    // onClick={() => openModal()}
-                >
+                <Button asChild>
                      <Link href={'/project-planner/questionnaire'}>
                          <PlusIcon className="h-3 w-3 mr-1"/> Create new
                 </Link>
                 </Button>
             </div>
-            {children}
+            <div className={' w-[80%] mx-auto  mb-12 flex items-center justify-between '}>
+                {children}
+            </div>
         </div>
     );
 };

@@ -94,14 +94,12 @@ const QuestionnaireForm = () => {
                 createdAt: generateCreatedAt(),
                 lastUpdated: generateUpdatedAt(),
                 data: [
-                    // { question: "Number of springs", answer:  data.numberofSprings },
-                    // { question: "Type of tension control system", answer:  data.tensionControlSystemType },
-                    // { question: "Safety features", answer:  data.safetyFeatures }
-
                     { question: "How  many springs can you produce?", answer: await handleSendMessage(data.numberofSprings, sessionId) },
                     { question: "What type of tension control system do you have?", answer: await handleSendMessage(data.tensionControlSystemType, sessionId) },
                     { question: "Do you have safety features", answer: await handleSendMessage(data.safetyFeatures, sessionId) }
-                ]
+                ],
+                generatedPlan: null,
+                kanbanBoard: null
             };
 
             const existingQuestionnaires = JSON.parse(localStorage.getItem('plannerQuestionnaires')) || [];
