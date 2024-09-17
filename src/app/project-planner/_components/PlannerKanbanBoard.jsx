@@ -100,15 +100,7 @@ const PlannerKanbanBoard = ({ boardId }) => {
 
     if (!board) return <div>Loading...</div>;
 
-
-    // const columns = [
-    //     { label: 'To do', dataField: 'toDo' },
-    //     { label: 'In progress', dataField: 'inProgress' },
-    //     { label: 'Testing', dataField: 'testing' },
-    //     { label: 'Done', dataField: 'done' }
-    // ]
-    // const color = "#317cab";
-
+    
     const { projectName, kanbanBoard } = board || {};
 
     // console.log("----------------------")
