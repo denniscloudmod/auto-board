@@ -131,7 +131,7 @@ const EditorDetail = ({editorId}) => {
                     <div className={'relative'}>
                         <Editor
                             onChange={handleEditorChange}
-                            license="8414516F-15A2-4D84-A7AF-A9A72400DB02"
+                            // license="8414516F-15A2-4D84-A7AF-A9A72400DB02"
                             onReady={initEditor}
                             ref={editorRef}
                             id="editor"

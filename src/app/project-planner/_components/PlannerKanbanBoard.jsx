@@ -115,7 +115,7 @@ const PlannerKanbanBoard = ({ boardId }) => {
 
 
     return (
-        <div className="relative w-full h-screen" style={{backgroundColor: kanbanBoard.color, opacity: 0.8}}>
+        <div className="relative w-full h-screen" style={{backgroundColor: kanbanBoard?.color, opacity: 0.8}}>
 
             <Button asChild className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} >
                  <Link href={'/project-planner'}> <ChevronLeftIcon className="h-4 w-4"/> Back</Link>
@@ -125,10 +125,10 @@ const PlannerKanbanBoard = ({ boardId }) => {
             <div className={'w-[80%] mx-auto'}>
                 <h1 className={'text-xl font-bold text-center py-12'}>{projectName}</h1>
                 <Kanban
-                    license={process.env.NEXT_PUBLIC_SMART_LICENSE_KEY}
+                    // license={process.env.NEXT_PUBLIC_SMART_LICENSE_KEY}
                     id="projectKanban"
-                    dataSource={kanbanBoard.dataSource}
-                    columns={kanbanBoard.columns}
+                    dataSource={kanbanBoard?.dataSource}
+                    columns={kanbanBoard?.columns}
                     editable={true}
                     taskActions={true}
                     taskComments={true}

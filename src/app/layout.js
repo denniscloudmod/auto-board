@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body smart-license="8414516F-15A2-4D84-A7AF-A9A72400DB02" className={inter.className}>
       {children}
       <Toaster />
       </body>
