@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dbpush": "bunx drizzle-kit push",
+    "dbgenerate": "bunx drizzle-kit generate",
+    "dbmigrate": "bunx drizzle-kit migrate",
+    "dbstudio": "bunx drizzle-kit studio"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-agent-runtime": "^3.649.0",
@@ -19,8 +23,11 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@tanstack/react-table": "^8.20.5",
+    "@vercel/postgres": "^0.10.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.33.0",
     "lucide-react": "^0.438.0",
     "next": "14.2.6",
     "react": "^18",
@@ -32,6 +39,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "drizzle-kit": "^0.24.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "postcss": "^8",
