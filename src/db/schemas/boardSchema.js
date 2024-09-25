@@ -2,7 +2,6 @@ import { pgTable, serial, text, timestamp, varchar, integer, jsonb , boolean, da
 
 
 export const boards = pgTable('boards', {
-    // id: serial('id').primaryKey(),
     id: uuid('id').primaryKey().defaultRandom(),
     title: varchar('title', { length: 255 }).notNull(),
     color: varchar('color', { length: 7 }).notNull().default('#3490dc'),
@@ -13,12 +12,9 @@ export const boards = pgTable('boards', {
 
 export const columns = pgTable('columns', {
     id: serial('id').primaryKey(),
-    // boardId: serial('board_id').references(() => boards.id),
     boardId: uuid('board_id').references(() => boards.id),
     label: varchar('label', { length: 255 }).notNull(),
     dataField: varchar('data_field', { length: 255 }).notNull(),
-    // boardId: integer('board_id').references(() => board.id).notNull(),
-    // order: serial('order').notNull(),
     order: integer('order').notNull(),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),

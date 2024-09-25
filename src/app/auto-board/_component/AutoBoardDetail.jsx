@@ -7,9 +7,12 @@ import 'smart-webcomponents-react/source/styles/smart.default.css'
 import {ChevronLeftIcon} from "@heroicons/react/16/solid";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {getBoard} from "@/actions/kanban/list";
+import {useToast} from "@/hooks/use-toast";
 
 const AutoBoardDetail = ({ boardId }) => {
     const router = useRouter();
+    const { toast } = useToast();
     const [users, setUsers] = useState([
         {
             id: 1,
@@ -67,20 +70,32 @@ const AutoBoardDetail = ({ boardId }) => {
     const [board, setBoard] = useState(null);
 
 
+
     useEffect(() => {
-        const storedBoards = JSON.parse(localStorage.getItem('boards')) || [];
-        const currentBoard = storedBoards.find((b) => b.id === parseInt(boardId, 10));
-        setBoard(currentBoard);
+        const getBoardDetail = async () => {
+            try {
+                const boardDetail = await getBoard(boardId);
+                setBoard(boardDetail?.data);
+                console.log("boardDetail", boardDetail)
+            } catch (error) {
+                console.error('Error fetching board:', error);
+                toast({
+                    title: "Error",
+                    description: "Failed to fetch board",
+                    variant: "destructive",
+                })
+            }
+        };
+
+        getBoardDetail();
     }, [boardId]);
 
 
     if (!board) return <div>Loading...</div>;
 
-    const { title, columns, color } = board || {};
+    const { title, color } = board || {};
 
-    console.log("title", title);
-    console.log("color", color);
-    console.log("columns", columns);
+    const { columns } = board || {};
 
 
     return (
@@ -136,8 +151,6 @@ const AutoBoardDetail = ({ boardId }) => {
                     priorityList={true}
                 />
             </div>
-
-
         </div>
     );
 };

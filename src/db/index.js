@@ -1,4 +1,4 @@
-import '@/drizzle/envConfig';
+import '@/db/envConfig'
 
 
 import { drizzle } from 'drizzle-orm/vercel-postgres';
