@@ -1,13 +1,10 @@
-'use client';
-
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react';
 import { PencilSquareIcon, TrashIcon, EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
-    const router = useRouter();
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [boardToDelete, setBoardToDelete] = useState(null);
 
@@ -24,20 +21,18 @@ const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
         setIsDeleteDialogOpen(false);
     };
 
-    const handleBoardClick = (boardId) => {
-        router.push(`/auto-board/${boardId}`);
-    };
-
     return (
         <>
             {boards.map((board) => (
-                <div
-                    key={board.id}
-                    className="relative h-[7rem] p-6 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex items-center justify-center cursor-pointer"
-                    style={{ backgroundColor: board.color }}
-                    onClick={() => handleBoardClick(board.id)}
-                >
-                    <h3 className="absolute top-2 left-2 text-lg font-normal">{board.title}</h3>
+                <div key={board.id} className="relative">
+                    <Link href={`/auto-board/${board.id}`} passHref>
+                        <div
+                            className="h-[7rem] p-6 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex items-center justify-center cursor-pointer"
+                            style={{ backgroundColor: board.color }}
+                        >
+                            <h3 className="absolute top-2 left-2 text-lg font-normal">{board.title}</h3>
+                        </div>
+                    </Link>
                     <Popover className="absolute top-2 right-2 z-10">
                         {({ open }) => (
                             <>
