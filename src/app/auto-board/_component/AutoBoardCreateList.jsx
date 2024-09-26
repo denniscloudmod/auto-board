@@ -54,33 +54,7 @@ const AutoBoardCreateList = () => {
         setSelectedBoard(null);
     };
 
-    // Fetch boards
-    const handleGetBoards = async () => {
-        try {
-            const result = await getBoards();
-            // setBoards(result);
-            // console.log("result", result)
-            if (result.error === null) {
-                setBoards(result.data);
-            } else {
-                console.error('Error fetching boards:', result.error);
-                toast({
-                    title: "Error",
-                    description: "Something went wrong, try again later",
-                    variant: "destructive"
-                });
-            }
-        } catch (error) {
-            console.error('Error fetching boards:', error);
-            toast({
-                title: "Error",
-                description: "Something went wrong, try again later",
-                variant: "destructive"
-            })
-        } finally {
-            setIsPageLoading(false)
-        }
-    };
+
 
     const handleCreateOrUpdateBoard = async () => {
         setIsLoading(true);
@@ -143,8 +117,35 @@ const AutoBoardCreateList = () => {
     };
 
     useEffect(() => {
+        // Fetch boards
+        const handleGetBoards = async () => {
+            try {
+                const result = await getBoards();
+                // setBoards(result);
+                // console.log("result", result)
+                if (result.error === null) {
+                    setBoards(result.data);
+                } else {
+                    console.error('Error fetching boards:', result.error);
+                    toast({
+                        title: "Error",
+                        description: "Something went wrong, try again later",
+                        variant: "destructive"
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching boards:', error);
+                toast({
+                    title: "Error",
+                    description: "Something went wrong, try again later",
+                    variant: "destructive"
+                })
+            } finally {
+                setIsPageLoading(false)
+            }
+        };
         handleGetBoards();
-    }, [handleGetBoards]);
+    }, []);
 
 
     const handleDeleteBoard = async (boardId) => {
