@@ -114,6 +114,8 @@ const AutoBoardCreateList = () => {
                         description: "Board created successfully",
                         variant: "default"
                     });
+                    console.log("newBoard.data.id", newBoard.data.id)
+                    router.push(`/auto-board/${newBoard.data.id}`);
                 } else {
                     toast({
                         title: "Error",
@@ -142,7 +144,7 @@ const AutoBoardCreateList = () => {
 
     useEffect(() => {
         handleGetBoards();
-    }, []);
+    }, [handleGetBoards]);
 
 
     const handleDeleteBoard = async (boardId) => {

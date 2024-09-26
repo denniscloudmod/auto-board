@@ -11,7 +11,6 @@ export const getBoards = async () => {
         // const result = await db.select().from(boards).where(eq(boards.userId, userId));
         const result = await db.select().from(boards).orderBy(asc(boards.createdAt))
         return {data: result, error: null}
-
     } catch (error) {
         console.error('Error fetching boards:', error);
         return {
@@ -38,7 +37,10 @@ export const getBoard = async (id) => {
 
 export const getBoardColumns = async (boardId) => {
     try {
+        // const result = await db.select().from(columns);
         const result = await db.select().from(columns).where(eq(columns.boardId, boardId)).orderBy(columns.order);
+        // console.log('Col Result', result)
+
         return {data: result, error: null}
 
     } catch (error) {
