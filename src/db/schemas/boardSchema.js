@@ -1,3 +1,4 @@
+
 import { pgTable, serial, text, timestamp, varchar, integer, jsonb , boolean, date, uuid, doublePrecision } from 'drizzle-orm/pg-core';
 
 
@@ -12,7 +13,7 @@ export const boards = pgTable('boards', {
 
 export const columns = pgTable('columns', {
     id: serial('id').primaryKey(),
-    boardId: uuid('board_id').references(() => boards.id),
+    boardId: uuid('board_id').references(() => boards.id, { onDelete: 'cascade' }),
     label: varchar('label', { length: 255 }).notNull(),
     dataField: varchar('data_field', { length: 255 }).notNull(),
     order: integer('order').notNull(),
@@ -23,8 +24,8 @@ export const columns = pgTable('columns', {
 
 export const tasks = pgTable('tasks', {
     id: uuid('id').primaryKey().defaultRandom(),
-    boardId: uuid('board_id').notNull().references(() => boards.id),
-    columnId: integer('column_id').notNull().references(() => columns.id),
+    boardId: uuid('board_id').notNull().references(() => boards.id, { onDelete: 'cascade' }),
+    columnId: integer('column_id').notNull().references(() => columns.id, { onDelete: 'cascade' }),
     title: text('title').notNull(),
     description: text('description'),
     priority: varchar('priority', { length: 50 }),
@@ -43,14 +44,14 @@ export const tasks = pgTable('tasks', {
 
 export const checklists = pgTable('checklists', {
     id: uuid('id').primaryKey().defaultRandom(),
-    taskId: uuid('task_id').references(() => tasks.id),
+    taskId: uuid('task_id').references(() => tasks.id, { onDelete: 'cascade' }),
     text: text('text'),
     completed: boolean('completed').default(false),
 });
 
 export const comments = pgTable('comments', {
     id: uuid('id').primaryKey().defaultRandom(),
-    taskId: uuid('task_id').references(() => tasks.id),
+    taskId: uuid('task_id').references(() => tasks.id, { onDelete: 'cascade' }),
     userId: uuid('user_id'),
     text: text('text'),
     time: timestamp('time').defaultNow(),
