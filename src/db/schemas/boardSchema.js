@@ -25,17 +25,19 @@ export const columns = pgTable('columns', {
 export const tasks = pgTable('tasks', {
     id: uuid('id').primaryKey().defaultRandom(),
     boardId: uuid('board_id').notNull().references(() => boards.id, { onDelete: 'cascade' }),
-    columnId: integer('column_id').notNull().references(() => columns.id, { onDelete: 'cascade' }),
-    title: text('title').notNull(),
+    columnId: integer('column_id').references(() => columns.id, { onDelete: 'cascade' }),
+    text: text('text').notNull(),
     description: text('description'),
     priority: varchar('priority', { length: 50 }),
     progress: doublePrecision('progress'),
-    startDate: date('start_date'),
-    dueDate: date('due_date'),
+    startDate: timestamp('start_date', { precision: 3, withTimezone: true }),
+    dueDate: timestamp('due_date', { precision: 3, withTimezone: true }),
+    color: varchar('color', { length: 7 }),
     tags: text('tags'),
     swimlane: varchar('swimlane', { length: 255 }),
     userId: uuid('user_id'),
     status: varchar('status', { length: 50 }).notNull(),
+    statusLabel: varchar('status_label', { length: 50 }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -56,7 +58,3 @@ export const comments = pgTable('comments', {
     text: text('text'),
     time: timestamp('time').defaultNow(),
 });
-
-
-
-

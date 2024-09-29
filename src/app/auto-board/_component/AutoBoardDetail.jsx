@@ -12,6 +12,15 @@ import {useToast} from "@/hooks/use-toast";
 import {addColumn, deleteColumn, getColumns, reorderColumn, updateColumn} from "@/actions/kanban/column-actions";
 import {Loader2} from "lucide-react";
 import Loading from "@/app/loading";
+import {
+    addComment,
+    addTaskAction,
+    copyTask,
+    deleteTask,
+    editTask,
+    editTaskAction,
+    listTasksAction
+} from "@/actions/kanban/task-actions";
 
 const AutoBoardDetail = ({ boardId }) => {
     const router = useRouter();
@@ -33,6 +42,18 @@ const AutoBoardDetail = ({ boardId }) => {
             console.error('Error fetching columns:', error);
         }
     }
+
+    const [taskList, setTaskList] = useState([])
+
+    const fetchTasks = async () => {
+        const response = await listTasksAction(boardId)
+        console.log("task list", response.data)
+        setTaskList(response.data)
+    }
+
+    useEffect(() => {
+        fetchTasks()
+    }, [])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -137,6 +158,198 @@ const AutoBoardDetail = ({ boardId }) => {
         }
     }
 
+
+    const handleTaskAdd = async (e) => {
+        const { detail } = e;
+        // console.log('Task added data:', detail);
+        const newTask = await addTaskAction(boardId, detail.value);
+        console.log('Task added:', newTask);
+        toast({
+            title: "Success",
+            description: "Task added successfully",
+        })
+    };
+
+    const handleTaskEdit = async (e) => {
+        const { detail } = e;
+        console.log('Task edited data:', detail);
+        // const updatedTask = await editTaskAction(detail.id, detail.value);
+        // console.log('Task updated:', updatedTask);
+    };
+
+    const handleCommentAdd = async (e) => {
+        const { detail } = e;
+        console.log('Comment added data:', detail);
+        // const newComment = await addComment(detail.id, detail.value.comments[detail.value.comments.length - 1]);
+        // console.log('Comment added:', newComment);
+    };
+
+    const handleTaskCopy = async (e) => {
+        const { detail } = e;
+        const copiedTask = await copyTask(detail.value);
+    };
+
+    const handleTaskRemove = async (e) => {
+        const { detail } = e;
+        const result = await deleteTask(detail.id);
+        console.log('Task deleted:', result);
+    };
+
+    const dataSource = [
+        {
+            id: "task-001",
+            text: "Implement user authentication",
+            status: "dataField031b",
+            // status: "todo",
+            priority: "high",
+            progress: 0,
+            startDate: new Date("2024-03-20T09:00:00Z"),
+            dueDate: new Date("2024-04-03T17:00:00Z"),
+            userId: "user-201",
+            tags: "backend,security",
+            color: "#FF5722",
+            swimlane: "Backend",
+            checklist: [
+                { completed: false, text: "Research authentication methods" },
+                { completed: false, text: "Implement JWT" },
+                { completed: false, text: "Test with frontend" }
+            ]
+        },
+        {
+            id: "task-002",
+            text: "Design landing page",
+            status: "dataFieldbc39",
+            priority: "medium",
+            progress: 60,
+            startDate: new Date("2024-03-18T10:00:00Z"),
+            dueDate: new Date("2024-03-25T17:00:00Z"),
+            userId: "user-102",
+            tags: "frontend,design",
+            color: "#2196F3",
+            swimlane: "Design",
+            comments: [
+                { text: "Let's use a minimalist approach", time: new Date("2024-03-19T11:30:00Z"), userId: "user-102" }
+            ]
+        },
+        {
+            id: "task-003",
+            text: "Optimize database queries",
+            status: "dataField8008",
+            priority: "high",
+            progress: 90,
+            startDate: new Date("2024-03-15T08:00:00Z"),
+            dueDate: new Date("2024-03-22T17:00:00Z"),
+            userId: "user-203",
+            tags: "backend,performance",
+            color: "#9C27B0",
+            swimlane: "Backend"
+        },
+        {
+            id: "task-004",
+            text: "Implement responsive design",
+            status: "dataField9ed9",
+            priority: "medium",
+            progress: 100,
+            startDate: new Date("2024-03-10T09:00:00Z"),
+            dueDate: new Date("2024-03-17T17:00:00Z"),
+            userId: "user-104",
+            tags: "frontend,css",
+            color: "#4CAF50",
+            swimlane: "Frontend"
+        },
+        {
+            id: "task-005",
+            text: "Set up CI/CD pipeline",
+            status: "dataFieldbc39",
+            priority: "high",
+            progress: 40,
+            startDate: new Date("2024-03-22T08:00:00Z"),
+            dueDate: new Date("2024-04-05T17:00:00Z"),
+            userId: "user-205",
+            tags: "devops,automation",
+            color: "#FFC107",
+            swimlane: "DevOps"
+        },
+        {
+            id: "task-006",
+            text: "Create user onboarding flow",
+            status: "dataField031b",
+            // status: "todo",
+            priority: "low",
+            progress: 0,
+            startDate: new Date("2024-04-01T09:00:00Z"),
+            dueDate: new Date("2024-04-15T17:00:00Z"),
+            userId: "user-106",
+            tags: "ux,frontend",
+            color: "#00BCD4",
+            swimlane: "UX"
+        },
+        {
+            id: "task-007",
+            text: "Implement payment gateway",
+            status: "dataFieldaaef",
+            priority: "high",
+            progress: 20,
+            startDate: new Date("2024-03-25T08:00:00Z"),
+            dueDate: new Date("2024-04-08T17:00:00Z"),
+            userId: "user-207",
+            tags: "backend,integration",
+            color: "#F44336",
+            swimlane: "Backend",
+            comments: [
+                { text: "Waiting for API credentials from the payment provider", time: new Date("2024-03-26T14:20:00Z"), userId: "user-207" }
+            ]
+        },
+        {
+            id: "task-008",
+            text: "Write unit tests for core modules",
+            status: "dataFieldbc39",
+            priority: "medium",
+            progress: 30,
+            startDate: new Date("2024-03-28T09:00:00Z"),
+            dueDate: new Date("2024-04-11T17:00:00Z"),
+            userId: "user-208",
+            tags: "testing,quality",
+            color: "#795548",
+            swimlane: "QA"
+        },
+        {
+            id: "task-009",
+            text: "Refactor legacy code",
+            status: "dataField8008",
+            priority: "low",
+            progress: 80,
+            startDate: new Date("2024-03-20T08:00:00Z"),
+            dueDate: new Date("2024-04-03T17:00:00Z"),
+            userId: "user-209",
+            tags: "refactoring,maintenance",
+            color: "#607D8B",
+            swimlane: "Maintenance"
+        },
+        {
+            id: "task-010",
+            text: "Prepare for product demo",
+            status: "dataField031b",
+            // status: "todo",
+            priority: "high",
+            progress: 0,
+            startDate: new Date("2024-04-10T09:00:00Z"),
+            dueDate: new Date("2024-04-17T15:00:00Z"),
+            userId: "user-210",
+            tags: "presentation,marketing",
+            color: "#E91E63",
+            swimlane: "Marketing",
+            checklist: [
+                { completed: false, text: "Prepare slides" },
+                { completed: false, text: "Set up demo environment" },
+                { completed: false, text: "Rehearse presentation" }
+            ]
+        }
+    ];
+
+
+
+
     return (
         <div className="relative w-full h-screen" style={{backgroundColor: color, opacity: 0.8}}>
             <Button asChild className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} >
@@ -146,8 +359,9 @@ const AutoBoardDetail = ({ boardId }) => {
             <div className={'w-[80%] mx-auto'}>
                 <h1 className={'text-xl font-bold text-center py-12'}>{title}</h1>
                 <Kanban
-                    license="8414516F-15A2-4D84-A7AF-A9A72400DB02"
                     id="projectKanban"
+                    dataSource={taskList}
+                    // dataSource={dataSource}
                     columns={columns}
                     editable={true}
                     taskActions={true}
@@ -187,6 +401,12 @@ const AutoBoardDetail = ({ boardId }) => {
                     onColumnRemove={handleColumnRemove}
                     onColumnUpdate={handleColumnUpdate}
                     onColumnReorder={handleColumnReorder}
+
+                    onTaskAdd={handleTaskAdd}
+                    onChange={handleTaskEdit}
+                    onTaskRemove={handleTaskRemove}
+                    onCopy={handleTaskCopy}
+                    onCommentAdd={handleCommentAdd}
                 />
             </div>
         </div>

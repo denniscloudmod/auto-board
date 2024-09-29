@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dbpush": "bunx drizzle-kit push",
-    "dbgenerate": "bunx drizzle-kit generate",
-    "dbmigrate": "bunx drizzle-kit migrate",
-    "dbstudio": "bunx drizzle-kit studio"
+    "db:push": "bunx drizzle-kit push",
+    "db:generate": "bunx drizzle-kit generate",
+    "db:migrate": "bunx drizzle-kit migrate",
+    "db:studio": "bunx drizzle-kit studio"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-agent-runtime": "^3.649.0",
