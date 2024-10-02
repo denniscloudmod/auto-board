@@ -13,6 +13,7 @@ import {getBoards} from "@/actions/kanban/list";
 import {Loader2Icon} from "lucide-react";
 import BoardList from "@/app/auto-board/_component/BoardList";
 import {deleteBoard} from "@/actions/kanban/destroy";
+import CreateBoard from "@/app/auto-board/_component/CreateBoard";
 
 
 const AutoBoardCreateList = () => {
@@ -54,6 +55,7 @@ const AutoBoardCreateList = () => {
         setSelectedBoard(null);
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     const handleCreateOrUpdateBoard = async () => {
@@ -77,7 +79,11 @@ const AutoBoardCreateList = () => {
                         variant: "default"
                     });
                 } else {
-                    throw new Error('Failed to update board');
+                    toast({
+                        title: "Error",
+                        description: "Something went wrong, try again later",
+                        variant: "destructive"
+                    })
                 }
             } else {
                 const newBoard = await createBoard(title, color, 'e16575cd-e9d3-47d5-b3ba-d3ef612f5683');
@@ -189,50 +195,32 @@ const AutoBoardCreateList = () => {
         <div className="container mx-auto py-12 px-2 mt-10">
             <h1 className="text-2xl font-bold mb-12">Auto Boards</h1>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {/*<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">*/}
                 <BoardList
                     boards={boards}
                     onEditBoard={handleEditBoard}
                     onDeleteBoard={handleDeleteBoard}
                 />
-                <div className="flex flex-col items-center justify-center md:h-[7rem] rounded-lg border-2 gap-4 p-4">
+                {/*<Button*/}
+                {/*    onClick={() => openModal()}*/}
+                {/*    disabled={isLoading}*/}
+                {/*    className="md:h-[7rem] w-auto rounded-lg p-4 disabled:opacity-50 bg-gray-200 text-gray-600 hover:bg-gray-100">*/}
+                {/*    Create new board*/}
+                {/*</Button>*/}
+                <>
                     <Button
-                        onClick={() => openModal()}
-                        disabled={isLoading}
-                        className="disabled:opacity-50"
+                        onClick={() => setIsModalOpen(true)}
+                        className="h-[7rem] w-auto rounded-lg p-4 disabled:opacity-50 bg-gray-200 text-gray-600 hover:bg-gray-100"
                     >
-                        <PlusIcon className="h-3 w-3 mr-2"/> Create new
+                        Create new board
                     </Button>
-                </div>
+                    <CreateBoard
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                    />
+                </>
             </div>
-
-            {/*<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">*/}
-            {/*    {boards.map((board) => (*/}
-            {/*        <div*/}
-            {/*            key={board.id}*/}
-            {/*            className="relative h-[7rem] p-6 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex items-center justify-center"*/}
-            {/*            style={{backgroundColor: board.color}}*/}
-            {/*        >*/}
-            {/*            <h3 className="absolute top-2 left-2 text-lg font-normal ">{board.title}</h3>*/}
-            {/*            <button*/}
-            {/*                onClick={() => handleEditBoard(board)}*/}
-            {/*                className="absolute top-2 right-2 p-1 rounded-full bg-gray-200/20 text-gray-50 hover:bg-gray-400"*/}
-            {/*            >*/}
-            {/*                <PencilSquareIcon className="h-5 w-5"/>*/}
-            {/*            </button>*/}
-            {/*            <Link href={`/auto-board/${board.id}`}>*/}
-            {/*                <EyeIcon className="h-10 w-10 opacity-50"/>*/}
-            {/*            </Link>*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*    <div className="flex flex-col items-center justify-center md:h-[7rem] rounded-lg border-2 gap-4 p-4">*/}
-            {/*        <Button*/}
-            {/*            onClick={() => openModal()}*/}
-            {/*        >*/}
-            {/*            <PlusIcon className="h-3 w-3 mr-2"/> Create new*/}
-            {/*        </Button>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
 
             {/* Modal */}
             <Transition appear show={isOpen} as={Fragment}>

@@ -10,18 +10,3 @@ export default defineConfig({
     out: "./migrations",
 });
 
-
-// import { defineConfig } from "drizzle-kit";
-
-// export default defineConfig({
-//     schema: "./src/schema.ts",
-//     out: "./drizzle",
-//     dialect: "postgresql",
-//     dbCredentials: {
-//         user: "postgres",
-//         password: process.env.DATABASE_PASSWORD,
-//         host: "127.0.0.1",
-//         port: 5432,
-//         database: "db",
-//     }
-// });

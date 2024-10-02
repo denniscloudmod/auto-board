@@ -10,14 +10,11 @@ import Link from "next/link";
 import {getBoard, getBoardColumns} from "@/actions/kanban/list";
 import {useToast} from "@/hooks/use-toast";
 import {addColumn, deleteColumn, getColumns, reorderColumn, updateColumn} from "@/actions/kanban/column-actions";
-import {Loader2} from "lucide-react";
 import Loading from "@/app/loading";
 import {
-    addComment,
+    addCommentAction,
     addTaskAction,
-    copyTask,
-    deleteTask,
-    editTask,
+    copyTask, deleteTaskAction,
     editTaskAction,
     listTasksAction
 } from "@/actions/kanban/task-actions";
@@ -63,7 +60,7 @@ const AutoBoardDetail = ({ boardId }) => {
                 const boardDetail = await getBoard(boardId);
                 setBoard(boardDetail?.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                // console.error('Error fetching data:', error);
                 toast({
                     title: "Error",
                     description: "Failed to fetch board data",
@@ -161,7 +158,6 @@ const AutoBoardDetail = ({ boardId }) => {
 
     const handleTaskAdd = async (e) => {
         const { detail } = e;
-        // console.log('Task added data:', detail);
         const newTask = await addTaskAction(boardId, detail.value);
         console.log('Task added:', newTask);
         toast({
@@ -173,15 +169,21 @@ const AutoBoardDetail = ({ boardId }) => {
     const handleTaskEdit = async (e) => {
         const { detail } = e;
         console.log('Task edited data:', detail);
-        // const updatedTask = await editTaskAction(detail.id, detail.value);
-        // console.log('Task updated:', updatedTask);
+        const updatedTask = await editTaskAction(detail.id, detail);
+        console.log('Task updated:', updatedTask);
+        toast({
+            title: "Success",
+            description: "Task updated successfully",
+        })
     };
 
     const handleCommentAdd = async (e) => {
         const { detail } = e;
-        console.log('Comment added data:', detail);
-        // const newComment = await addComment(detail.id, detail.value.comments[detail.value.comments.length - 1]);
-        // console.log('Comment added:', newComment);
+        const newComment = await addCommentAction(detail.id, detail.value);
+        toast({
+            title: "Success",
+            description: "Comment added successfully",
+        })
     };
 
     const handleTaskCopy = async (e) => {
@@ -191,7 +193,8 @@ const AutoBoardDetail = ({ boardId }) => {
 
     const handleTaskRemove = async (e) => {
         const { detail } = e;
-        const result = await deleteTask(detail.id);
+        console.log('Task to be deleted:', detail);
+        const result = await deleteTaskAction(detail.id);
         console.log('Task deleted:', result);
     };
 
@@ -199,7 +202,7 @@ const AutoBoardDetail = ({ boardId }) => {
         {
             id: "task-001",
             text: "Implement user authentication",
-            status: "dataField031b",
+            status: "dataField9053",
             // status: "todo",
             priority: "high",
             progress: 0,
@@ -273,7 +276,7 @@ const AutoBoardDetail = ({ boardId }) => {
         {
             id: "task-006",
             text: "Create user onboarding flow",
-            status: "dataField031b",
+            status: "dataField9053",
             // status: "todo",
             priority: "low",
             progress: 0,
@@ -329,7 +332,7 @@ const AutoBoardDetail = ({ boardId }) => {
         {
             id: "task-010",
             text: "Prepare for product demo",
-            status: "dataField031b",
+            status: "dataField9053",
             // status: "todo",
             priority: "high",
             progress: 0,
@@ -347,11 +350,8 @@ const AutoBoardDetail = ({ boardId }) => {
         }
     ];
 
-
-
-
     return (
-        <div className="relative w-full h-screen" style={{backgroundColor: color, opacity: 0.8}}>
+        <div className={`relative w-full h-screen ${color} bg-opacity-80`} >
             <Button asChild className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} >
                 <Link href={'/auto-board'}> <ChevronLeftIcon className="h-4 w-4"/> Back</Link>
             </Button>
@@ -397,6 +397,7 @@ const AutoBoardDetail = ({ boardId }) => {
                     taskSummaryTemplate={'summary'}
                     taskSummaryPosition={'bottom'}
                     priorityList={true}
+
                     onColumnAdd={handleColumnAdd}
                     onColumnRemove={handleColumnRemove}
                     onColumnUpdate={handleColumnUpdate}

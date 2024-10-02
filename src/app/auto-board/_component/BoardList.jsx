@@ -27,8 +27,8 @@ const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
                 <div key={board.id} className="relative">
                     <Link href={`/auto-board/${board.id}`} passHref>
                         <div
-                            className="h-[7rem] p-6 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex items-center justify-center cursor-pointer"
-                            style={{ backgroundColor: board.color }}
+                            className={`h-[7rem] p-6 rounded-lg shadow-lg text-white transition-transform transform hover:scale-105 flex items-center justify-center cursor-pointer ${board.color}`}
+                            // style={{ backgroundColor: board.color }}
                         >
                             <h3 className="absolute top-2 left-2 text-lg font-normal">{board.title}</h3>
                         </div>
@@ -56,16 +56,16 @@ const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <div className="py-1">
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    onEditBoard(board);
-                                                }}
-                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                <PencilSquareIcon className="h-4 w-4 inline-block mr-2" />
-                                                Edit
-                                            </button>
+                                            {/*<button*/}
+                                            {/*    onClick={(e) => {*/}
+                                            {/*        e.stopPropagation();*/}
+                                            {/*        onEditBoard(board);*/}
+                                            {/*    }}*/}
+                                            {/*    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"*/}
+                                            {/*>*/}
+                                            {/*    <PencilSquareIcon className="h-4 w-4 inline-block mr-2" />*/}
+                                            {/*    Edit*/}
+                                            {/*</button>*/}
                                             <button
                                                 onClick={(e) => handleDeleteClick(e, board)}
                                                 className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"

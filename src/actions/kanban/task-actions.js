@@ -64,39 +64,47 @@ export async function addTaskAction(boardId, taskData) {
 }
 
 
-export async function editTask(taskId, taskData) {
-    const updatedTask = {
-        title: taskData.text,
-        description: taskData.description,
-        priority: taskData.priority,
-        progress: taskData.progress,
-        startDate: new Date(taskData.startDate),
-        dueDate: new Date(taskData.dueDate),
-        tags: JSON.stringify(taskData.tags),
-        userId: taskData.userId,
-        status: taskData.status,
-    };
+// export async function editTask(taskId, taskData) {
+//     const updatedTask = {
+//         title: taskData.text,
+//         description: taskData.description,
+//         priority: taskData.priority,
+//         progress: taskData.progress,
+//         startDate: new Date(taskData.startDate),
+//         dueDate: new Date(taskData.dueDate),
+//         tags: JSON.stringify(taskData.tags),
+//         userId: taskData.userId,
+//         status: taskData.status,
+//     };
+//
+//     await db.update(tasks).set(updatedTask).where(eq(tasks.id, taskId));
+//
+//     // Handle checklist updates
+//     if (taskData.checklist) {
+//         await db.delete(checklists).where(eq(checklists.taskId, taskId));
+//         const checklistItems = taskData.checklist.map((item) => ({
+//             // id: uuidv4(),
+//             taskId,
+//             text: item.text,
+//             completed: item.completed,
+//         }));
+//         await db.insert(checklists).values(checklistItems);
+//     }
+//
+//     return { id: taskId, ...taskData };
+// }
 
-    await db.update(tasks).set(updatedTask).where(eq(tasks.id, taskId));
-
-    // Handle checklist updates
-    if (taskData.checklist) {
-        await db.delete(checklists).where(eq(checklists.taskId, taskId));
-        const checklistItems = taskData.checklist.map((item) => ({
-            // id: uuidv4(),
-            taskId,
-            text: item.text,
-            completed: item.completed,
-        }));
-        await db.insert(checklists).values(checklistItems);
-    }
-
-    return { id: taskId, ...taskData };
-}
 
 export async function listTasksAction(boardId) {
     try {
-        const tasksList = await db.select().from(tasks).where(eq(tasks.boardId, boardId));
+
+        const tasksList = await db.query.tasks.findMany({
+            where: eq(tasks.boardId, boardId),
+            with: {
+                checklist: true,
+                comments: true,
+            },
+        });
         console.log('tasksList', tasksList);
         return {
             data: tasksList,
@@ -113,124 +121,26 @@ export async function listTasksAction(boardId) {
     }
 }
 
-// export async function listTasksAction(boardId) {
-//     try {
-//         const tasksWithChecklists = await db
-//             .select({
-//                 id: tasks.id,
-//                 boardId: tasks.boardId,
-//                 columnId: tasks.columnId,
-//                 text: tasks.text,
-//                 description: tasks.description,
-//                 priority: tasks.priority,
-//                 progress: tasks.progress,
-//                 startDate: tasks.startDate,
-//                 dueDate: tasks.dueDate,
-//                 color: tasks.color,
-//                 tags: tasks.tags,
-//                 swimlane: tasks.swimlane,
-//                 userId: tasks.userId,
-//                 status: tasks.status,
-//                 statusLabel: tasks.statusLabel,
-//                 createdAt: tasks.createdAt,
-//                 updatedAt: tasks.updatedAt,
-//                 checklist: db
-//                     .select({
-//                         id: checklists.id,
-//                         text: checklists.text,
-//                         completed: checklists.completed,
-//                     })
-//                     .from(checklists)
-//                     .where(eq(checklists.taskId, tasks.id)),
-//             })
-//             .from(tasks)
-//             .where(eq(tasks.boardId, boardId));
-//
-//         const tasksList = tasksWithChecklists.map(task => ({
-//             ...task,
-//             checklist: task.checklist || [],
-//         }));
-//
-//         console.log('tasksList', tasksList);
-//     } catch (error) {
-//         console.error('Error listing tasks:', error);
-//         return {
-//             data: null,
-//             error: error.message || 'Internal Server Error',
-//             success: false,
-//         };
-//     }
-// }
-
-
-// export async function listTasksAction(boardId) {
-//     try {
-//         const tasksWithChecklists = await db
-//             .select({
-//                 id: tasks.id,
-//                 text: tasks.text,
-//                 description: tasks.description,
-//                 status: tasks.status,
-//                 priority: tasks.priority,
-//                 progress: tasks.progress,
-//                 startDate: tasks.startDate,
-//                 dueDate: tasks.dueDate,
-//                 userId: tasks.userId,
-//                 tags: tasks.tags,
-//                 color: tasks.color,
-//                 swimlane: tasks.swimlane,
-//                 // checklist: db.jsonAgg(db.selectDistinct({
-//                 //     id: checklists.id,
-//                 //     text: checklists.text,
-//                 //     completed: checklists.completed
-//                 // }).from(checklists).where(eq(checklists.taskId, tasks.id))).as('checklist')
-//             })
-//             .from(tasks)
-//             .where(eq(tasks.boardId, boardId))
-//             .groupBy(tasks.id);
-//
-//         const formattedTasks = tasksWithChecklists.map(task => ({
-//             ...task,
-//             checklist: task.checklist[0] ? task.checklist : [],
-//             tags: task.tags ? task.tags.split(',') : [],
-//             startDate: task.startDate ? new Date(task.startDate) : null,
-//             dueDate: task.dueDate ? new Date(task.dueDate) : null,
-//         }));
-//
-//         console.log('tasksList', formattedTasks);
-//
-//         return {
-//             data: formattedTasks,
-//             error: null,
-//             success: true,
-//         };
-//     } catch (error) {
-//         console.error('Error listing tasks:', error);
-//         return {
-//             data: null,
-//             error: error.message || 'Internal Server Error',
-//             success: false,
-//         };
-//     }
-// }
 
 export async function editTaskAction(taskId, taskData) {
     try {
         const updatedTask = await db.update(tasks)
             .set({
-                text: taskData.text,
-                description: taskData.description,
-                priority: taskData.priority,
-                progress: taskData.progress,
-                startDate: taskData.startDate,
-                dueDate: taskData.dueDate,
-                tags: JSON.stringify(taskData.tags),
-                userId: taskData.userId,
-                status: taskData.status,
-                statusLabel: taskData.statusLabel,
-                columnId: taskData.column.id,
-                color: taskData.color,
-                checklist: JSON.stringify(taskData.checklist),
+                text: taskData.value.text,
+                description: taskData.value.description,
+                priority: taskData.value.priority,
+                progress: taskData.value.progress,
+                startDate: taskData.value.startDate,
+                dueDate: taskData.value.dueDate,
+                tags: JSON.stringify(taskData.value.tags),
+                userId: taskData.value.userId,
+                status: taskData.value.status,
+                statusLabel: taskData.value.statusLabel,
+                columnId: taskData.task.column.id,
+                boardId: taskData.value.boardId,
+                color: taskData.value.color,
+                updatedAt : new Date(),
+                // checklist: JSON.stringify(taskData.checklist),
             })
             .where(eq(tasks.id, taskId))
             .returning();
@@ -286,6 +196,7 @@ export async function editTaskAction(taskId, taskData) {
         //     const updatedChecklistResult = await db.update(checklists).set(checklistItems).where(eq(checklists.taskId, taskId)).returning();
         //     console.log('updatedChecklistResult', updatedChecklistResult);
         // }
+
         // if (taskData.checklist) {
         //     console.log('taskData.checklist', taskData.checklist);
         //     const checklistItems = taskData.checklist.map((item) => ({
@@ -297,7 +208,6 @@ export async function editTaskAction(taskId, taskData) {
         //     const checklistResult = await db.insert(checklists).values(checklistItems);
         //     console.log('checklistResult', checklistResult);
         // }
-
 
 
         return {
@@ -315,19 +225,47 @@ export async function editTaskAction(taskId, taskData) {
     }
 }
 
+export async function deleteTaskAction(taskId) {
+    try {
+        await db.delete(tasks).where(eq(tasks.id, taskId));
+        return {
+            data: null,
+            error: null,
+            success: true,
+        };
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        return {
+            data: null,
+            error: error.message || 'Internal Server Error',
+            success: false,
+        };
+    }
+}
 
-export async function addComment(taskId, commentData) {
-    const newComment = {
-        id: uuidv4(),
-        taskId,
-        userId: commentData.userId,
-        text: commentData.text,
-        time: new Date(),
-    };
+export async function addCommentAction(taskId, commentData) {
+    try {
+        const newComment = await db.insert(comments).values({
+            taskId,
+            userId: crypto.randomUUID(),
+            // userId: commentData.userId,
+            text: commentData.text,
+            time: commentData.time,
+        }).returning();
 
-    await db.insert(comments).values(newComment);
-
-    return newComment;
+        return {
+            data: newComment[0],
+            error: null,
+            success: true,
+        };
+    } catch (error) {
+        console.error('Error adding comment:', error);
+        return {
+            data: null,
+            error: error.message || 'Internal Server Error',
+            success: false,
+        };
+    }
 }
 
 export async function copyTask(taskData) {
@@ -361,9 +299,4 @@ export async function copyTask(taskData) {
     }
 
     return newTask;
-}
-
-export async function deleteTask(taskId) {
-    await db.delete(tasks).where(eq(tasks.id, taskId));
-    return { success: true };
 }

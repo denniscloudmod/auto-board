@@ -1,2 +1,1 @@
-
-export {  boards, columns, tasks, comments, checklists } from "@/db/schemas/boardSchema";
+export *  from "@/db/schemas/boardSchema";

@@ -1,11 +1,13 @@
 
 import { pgTable, serial, text, timestamp, varchar, integer, jsonb , boolean, date, uuid, doublePrecision } from 'drizzle-orm/pg-core';
+import {relations} from "drizzle-orm";
+import {users} from "@/db/schemas/userSchema";
 
 
 export const boards = pgTable('boards', {
     id: uuid('id').primaryKey().defaultRandom(),
     title: varchar('title', { length: 255 }).notNull(),
-    color: varchar('color', { length: 7 }).notNull().default('#3490dc'),
+    color: varchar('color', { length: 255 }).notNull().default('#3490dc'),
     userId: uuid('user_id'),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),
@@ -54,7 +56,28 @@ export const checklists = pgTable('checklists', {
 export const comments = pgTable('comments', {
     id: uuid('id').primaryKey().defaultRandom(),
     taskId: uuid('task_id').references(() => tasks.id, { onDelete: 'cascade' }),
+    // userId: uuid('user_id').references(() => users.id, {onDelete: 'cascade'}),
     userId: uuid('user_id'),
     text: text('text'),
     time: timestamp('time').defaultNow(),
 });
+
+
+export const tasksRelations = relations(tasks, ({ many }) => ({
+    checklist: many(checklists),
+    comments: many(comments),
+}));
+
+export const checklistsRelations = relations(checklists, ({ one }) => ({
+    task: one(tasks, {
+        fields: [checklists.taskId],
+        references: [tasks.id],
+    }),
+}));
+
+export const commentsRelations = relations(comments, ({ one }) => ({
+    task: one(tasks, {
+        fields: [comments.taskId],
+        references: [tasks.id],
+    }),
+}));
