@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import "./kanban.css";
 import "./globals.css";
 import {Toaster} from "@/components/ui/toaster";
 

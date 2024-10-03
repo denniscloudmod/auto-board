@@ -1,0 +1,45 @@
+/*html,*/
+/*body,*/
+/*#kanban {*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+
+/*}*/
+
+/*html,*/
+/*body {*/
+/*    margin: 0;*/
+/*}*/
+
+/*#kanban {*/
+/*    --jqx-kanban-header-size: 20px;*/
+/*    --jqx-border: #333;*/
+/*    !*background-color: rgba(69, 69, 69, 0.1);*!*/
+/*    background-color: black;*/
+/*}*/
+
+/*#kanban .jqx-kanban-task {*/
+/*    box-shadow: var(--jqx-elevation-1);*/
+/*}*/
+
+/*#kanban .jqx-kanban-task-text.high {*/
+/*    color: orangered;*/
+/*}*/
+
+html,
+body,
+#kanban {
+    /*--smart-background: transparent;*/
+    overflow-x: auto;
+    /*.smart-kanban-column{*/
+    /*    max-width : 18rem;*/
+    /*}*/
+    .smart-element {
+        background: transparent;
+    }
+
+    .smart-kanban-window button{
+        background: var(--smart-primary);
+        color: white;
+    }
+}
