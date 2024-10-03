@@ -389,7 +389,7 @@ const AutoBoardDetail = ({ boardId }) => {
                     columnColorEntireSurface={true}
                     onSortPrepare={true}
                     allowColumnReorder={true}
-                    // messages={kanbanMessages}
+                    messages={kanbanMessages}
                     addNewButtonDisplayMode={'bottom'}
                     applyColumnColorToTasks={true}
                     autoSaveState={true}

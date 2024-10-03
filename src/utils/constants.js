@@ -1,26 +1,4 @@
-export const solidColors = [
-    { id: 's1', class: 'bg-blue-500' },
-    { id: 's2', class: 'bg-red-500' },
-    { id: 's3', class: 'bg-green-500' },
-    { id: 's4', class: 'bg-yellow-500' },
-    { id: 's5', class: 'bg-purple-500' },
-    { id: 's6', class: 'bg-pink-500' },
-    { id: 's7', class: 'bg-indigo-500' },
-    { id: 's8', class: 'bg-teal-500' },
-    { id: 's9', class: 'bg-orange-500' },
-];
 
-export const gradients = [
-    { id: 'g1', class: 'bg-gradient-to-r from-pink-500 to-purple-500' },
-    { id: 'g2', class: 'bg-gradient-to-r from-yellow-400 to-orange-500' },
-    { id: 'g3', class: 'bg-gradient-to-r from-green-400 to-blue-500' },
-    { id: 'g4', class: 'bg-gradient-to-r from-indigo-500 to-purple-500' },
-    { id: 'g5', class: 'bg-gradient-to-r from-red-500 to-pink-500' },
-    { id: 'g6', class: 'bg-gradient-to-r from-yellow-500 to-green-500' },
-    { id: 'g7', class: 'bg-gradient-to-r from-blue-500 to-teal-500' },
-    { id: 'g8', class: 'bg-gradient-to-r from-purple-500 to-indigo-500' },
-    { id: 'g9', class: 'bg-gradient-to-r from-orange-500 to-red-500' },
-];
 
 
 export const kanbanMessages = {
