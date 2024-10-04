@@ -4,6 +4,7 @@ import "./globals.css";
 import {Toaster} from "@/components/ui/toaster";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
+import UserProfile from "@/app/(auth)/_components/UserProfile";
 // import {redirect} from "next/navigation";
 // import {auth} from "@/auth";
 
@@ -17,7 +18,8 @@ export const metadata = {
 export default async function RootLayout({children}) {
 
     const session = await auth()
-
+    // //
+    // console.log("session", session)
     // if (!session?.user?.id) {
     //     redirect("/login")
     // }
@@ -26,6 +28,17 @@ export default async function RootLayout({children}) {
     return (
         <html lang="en">
         <body smart-license="8414516F-15A2-4D84-A7AF-A9A72400DB02" className={inter.className}>
+        <nav className="bg-white shadow">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center h-16">
+                    {/* Your logo or other nav items */}
+                    <div className="flex-1"/>
+                    <div>
+                        <UserProfile session={session}/>
+                    </div>
+                </div>
+            </div>
+        </nav>
         {children}
         <Toaster/>
         </body>
