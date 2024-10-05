@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
 // import { decrypt } from '@/app/lib/session'
 import { cookies } from 'next/headers'
 
-const protectedRoutes = ['/', '/auto-board', '/project-planner']
+const protectedRoutes = ['/', '/auto-board', '/project-planner', '/dashboard', '/chat', '/profile-settings', 'account-settings' ]
 const publicRoutes = ['/login', '/signup',]
 
 export default async function middleware(req) {

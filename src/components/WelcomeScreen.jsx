@@ -5,7 +5,7 @@ import {ChevronRight, GitCommitHorizontal, Minus} from "lucide-react";
 
 const WelcomeScreen = () => {
     return (
-        <div className={'h-screen bg-white'}>
+        <div className={'h-screen'}>
             <div className={'flex flex-col items-center justify-center h-full'}>
                 <div className={'flex flex-col item-center justify-center space-y-8 mb-12'}>
                     <h1 className={'text-3xl font-bold text-center'}>Workspace</h1>
@@ -18,7 +18,7 @@ const WelcomeScreen = () => {
                 <div className={'flex flex-col item-center justify-center'}>
                     <div className={'text-2xl font-semibold mb-4'}>New Project</div>
                     <div className={'flex flex-col item-center justify-center space-y-2'}>
-                        <Button asChild className={'hover:border-2 hover:bg-white hover:text-black'}>
+                        <Button asChild className={'hover:border-2 bg-black text-white hover:bg-white hover:text-black'}>
                             <Link href={'/auto-board'}>  Manually <ChevronRight className={'ml-2 h-4 w-4'}/> </Link>
                         </Button>
                         <Button asChild variant={'outline'} className={'border-2 hover:bg-gray-800 hover:text-white'}>
