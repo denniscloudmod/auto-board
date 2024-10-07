@@ -3,6 +3,7 @@ import CreateListPlanner from "@/app/(protected)/project-planner/_components/Cre
 import DataTable from "@/app/(protected)/project-planner/_components/DataTable";
 import {projectColumns, projectEditorColumns} from "@/app/(protected)/project-planner/_components/Columns";
 import EditorDataTable from "@/app/(protected)/project-planner/_components/EditorDataTable";
+import PortalContainer from "@/app/(protected)/_components/PortalContainer";
 
 
 export const metadata = {
@@ -17,11 +18,13 @@ const Page = () => {
 
 
     return (
-        <CreateListPlanner>
-            <div className="container mx-auto py-10">
-                <EditorDataTable columns={projectEditorColumns}/>
-            </div>
-        </CreateListPlanner>
+        <PortalContainer>
+            <CreateListPlanner>
+                <div className="container mx-auto py-10">
+                    <EditorDataTable columns={projectEditorColumns}/>
+                </div>
+            </CreateListPlanner>
+        </PortalContainer>
     )
 }
 

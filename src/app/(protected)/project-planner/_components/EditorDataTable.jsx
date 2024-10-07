@@ -39,7 +39,7 @@ const EditorDataTable = ({ columns }) => {
     };
 
     return (
-        <div className="rounded-md border">
+        <div className="rounded-md border shadow-md">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (

@@ -353,13 +353,14 @@ const AutoBoardDetail = ({ boardId }) => {
     ];
 
     return (
-        <div className={`relative w-full h-screen ${color} bg-opacity-80`} >
-            <Button asChild className={'absolute top-4 left-4 flex gap-2 items-center text-sm '} >
+        <div className={`relative w-full h-screen ${color} bg-opacity-70`} >
+            <Button asChild className={`absolute text-white top-4 left-4 flex gap-2 items-center text-sm bg-[${color}]`} >
                 <Link href={'/auto-board'}> <ChevronLeftIcon className="h-4 w-4"/> Back</Link>
             </Button>
 
-            <div className={'w-[80%] mx-auto'}>
-                <h1 className={'text-xl font-bold text-center py-12'}>{title}</h1>
+            <div className={'w-full'}>
+            {/*<div className={'w-[80%] mx-auto'}>*/}
+                <h1 className={'text-xl font-bold text-center text-white py-12'}>{title}</h1>
                 <Kanban
                     id="projectKanban"
                     dataSource={taskList}

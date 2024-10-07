@@ -7,6 +7,7 @@ import {ChevronLeftIcon} from "@heroicons/react/16/solid";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {toast} from "@/hooks/use-toast";
+import PortalContainer from "@/app/(protected)/_components/PortalContainer";
 
 const PlannerKanbanBoard = ({ boardId }) => {
     const [users, setUsers] = useState([
@@ -122,7 +123,8 @@ const PlannerKanbanBoard = ({ boardId }) => {
             </Button>
 
 
-            <div className={'w-[80%] mx-auto'}>
+            <div>
+            {/*<div className={'w-[80%] mx-auto'}>*/}
                 <h1 className={'text-xl font-bold text-center py-12'}>{projectName}</h1>
                 <Kanban
                     // license={process.env.NEXT_PUBLIC_SMART_LICENSE_KEY}

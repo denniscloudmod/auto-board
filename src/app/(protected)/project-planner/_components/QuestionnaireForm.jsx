@@ -132,75 +132,77 @@ const QuestionnaireForm = () => {
     return (
         <div className="w-1/3 mx-auto mt-10 ">
             <h1 className={'my-10 font-bold text-center text-xl'}>Project Planner Questionnaire</h1>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <div className="grid gap-6">
-                        <FormField
-                            control={form.control}
-                            name="numberofSprings"
-                            render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Number of springs</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            <SelectItem value="How  many springs can you produce?">How  many springs can you produce?</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="tensionControlSystemType"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Type of tension control system</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            <SelectItem value="What type of tension control system do you have?">What type of tension control system do you have?</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="safetyFeatures"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Safety features</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            <SelectItem value="Do you have safety features ?">Do you have safety features ?</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <Button disabled={isLoading} className={'mt-6'} type="submit">
-                        {isLoading && <Loader2 className={'w-4 h-4 animate-spin mr-2 '}/>}  {isLoading ? 'Generating...' : 'Generate Project Plan'}
-                    </Button>
-                </form>
-            </Form>
+            <div className="shadow-md p-10 rounded">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <div className="grid gap-6">
+                            <FormField
+                                control={form.control}
+                                name="numberofSprings"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>Number of springs</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="How  many springs can you produce?">How  many springs can you produce?</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="tensionControlSystemType"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Type of tension control system</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="What type of tension control system do you have?">What type of tension control system do you have?</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="safetyFeatures"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Safety features</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="Do you have safety features ?">Do you have safety features ?</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <Button disabled={isLoading} className={'mt-6 text-white'} type="submit">
+                            {isLoading && <Loader2 className={'w-4 h-4 animate-spin mr-2 '}/>}  {isLoading ? 'Generating...' : 'Generate Project Plan'}
+                        </Button>
+                    </form>
+                </Form>
+            </div>
         </div>
     );
 };

@@ -3,6 +3,7 @@ import AutoBoardCreateList from "@/app/(protected)/auto-board/_component/AutoBoa
 import WorkSpaceBackButton from "@/components/WorkSpaceBackButton";
 import DataTable from "@/app/(protected)/project-planner/_components/DataTable";
 import {projectColumns} from "@/app/(protected)/project-planner/_components/Columns";
+import PortalContainer from "@/app/(protected)/_components/PortalContainer";
 
 export const metadata = {
     title: 'Auto Board | Create board, Board list',
@@ -12,14 +13,14 @@ export const metadata = {
 
 const Page = () => {
     return (
-        <>
+        <PortalContainer>
             <WorkSpaceBackButton/>
             <AutoBoardCreateList/>
             {/*<div className={'container mx-auto mt-5'}>*/}
             {/*    <div className={'text-2xl font-bold mb-5'}>Project Planner Boards</div>*/}
             {/*    <DataTable columns={projectColumns}/>*/}
             {/*</div>*/}
-        </>
+        </PortalContainer>
     );
 };
 

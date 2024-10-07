@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ReactNode } from "react";
+import React, { useState } from "react";
 import Sidebar from "@/app/(protected)/_components/Sidebar";
 import Header from "@/app/(protected)/_components/Header";
 
@@ -21,7 +21,8 @@ export default function DefaultLayout({children}) {
 
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
-            <div className="mx-auto max-w-screen-2xl h-screen p-4 md:p-6 2xl:p-10">
+            <div className="mx-auto max-w-screen-2xl h-screen ">
+            {/*<div className="mx-auto max-w-screen-2xl h-screen p-4 md:p-6 2xl:p-10">*/}
               {children}
             </div>
           </main>

@@ -12,7 +12,7 @@ export const metadata = {
 const Page = () => {
   return (
       <>
-          <WorkSpaceBackButton/>
+          {/*<WorkSpaceBackButton/>*/}
           <div className={'flex items-center justify-center w-full mt-20'}>
             <QuestionnaireForm/>
           </div>
