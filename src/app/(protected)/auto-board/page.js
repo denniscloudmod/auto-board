@@ -7,7 +7,7 @@ import PortalContainer from "@/app/(protected)/_components/PortalContainer";
 
 export const metadata = {
     title: 'Auto Board | Create board, Board list',
-    description: 'Auto Board'
+    description: 'Auto Board '
 };
 
 
