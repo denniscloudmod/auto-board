@@ -1,0 +1,2 @@
+ALTER TABLE "tasks" ALTER COLUMN "start_date" SET DATA TYPE timestamp (3) with time zone;--> statement-breakpoint
+ALTER TABLE "tasks" ALTER COLUMN "due_date" SET DATA TYPE timestamp (3) with time zone;

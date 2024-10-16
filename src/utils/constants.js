@@ -60,7 +60,8 @@ export const kanbanMessages = {
         'addNewTask': 'Add new task',
         'addSubtask': 'Add subtask',
         'assignedTo': 'Assigned to',
-        'checklist': 'Checklist',
+        'checklist': 'Task list',
+        // 'checklist': 'Checklist',
         'color': 'Color',
         'commentsIcon': 'Comments icon',
         'copy': 'Copy',
@@ -87,6 +88,12 @@ export const kanbanMessages = {
         'tags': 'Tags',
         'text': 'Text',
         'userId': 'User ID',
-        'userIcon': 'User icon'
+        'userIcon': 'User icon',
+        'detailsTab': 'Details',
+        'subtasksTab': 'Subtasks',
+        'tasksSummaryOne' : '',
+        'commentsTab': 'Comments',
+        'historyTab': 'History',
+
     }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "boards" ALTER COLUMN "color" SET DATA TYPE varchar(255);

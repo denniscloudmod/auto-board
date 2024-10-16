@@ -8,7 +8,11 @@ export const boards = pgTable('boards', {
     id: uuid('id').primaryKey().defaultRandom(),
     title: varchar('title', { length: 255 }).notNull(),
     color: varchar('color', { length: 255 }).notNull().default('#3490dc'),
-    userId: uuid('user_id'),
+    // userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }),
+    // userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }),
+    userId: text("user_id")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
     createdAt: timestamp('created_at').defaultNow(),
     updatedAt: timestamp('updated_at').defaultNow(),
 });
