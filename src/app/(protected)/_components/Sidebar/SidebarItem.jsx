@@ -22,6 +22,7 @@ const SidebarItem = ({ item, pageName, setPageName }) => {
 
   const isItemActive = isActive(item);
 
+
   return (
     <>
       <li>

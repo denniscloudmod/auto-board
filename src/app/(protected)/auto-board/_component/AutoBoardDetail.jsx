@@ -353,7 +353,7 @@ const AutoBoardDetail = ({ boardId }) => {
     ];
 
     return (
-        <div className={`relative w-full h-screen ${color} bg-opacity-70`} >
+        <div className={`relative w-full h-screen ${color} bg-opacity-70 pl-4`} >
             <Button asChild className={`absolute text-white top-4 left-4 flex gap-2 items-center text-sm bg-[${color}]`} >
                 <Link href={'/auto-board'}> <ChevronLeftIcon className="h-4 w-4"/> Back</Link>
             </Button>

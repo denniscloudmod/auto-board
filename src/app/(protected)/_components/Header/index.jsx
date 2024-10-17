@@ -5,12 +5,30 @@ import DropdownNotification from "./DropdownNotification";
 import DropdownUser from "./DropdownUser";
 import Image from "next/image";
 import {SessionProvider} from "next-auth/react";
+import React from "react";
 
-const Header = ({sidebarOpen,  setSidebarOpen}) => {
+const Header = ({sidebarOpen,  setSidebarOpen, showLogo}) => {
   return (
       <SessionProvider>
       <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
         <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+            {
+                showLogo && (
+                    <Link className={`hidden lg:block`} href="/">
+                <div className={'flex items-center justify-center space-x-2 '}>
+                    <Image
+                        width={32}
+                        // width={176}
+                        height={32}
+                        src={"/cloudmod-icon.svg"}
+                        alt="Logo"
+                        priority
+                    />
+                    <div>Cloud Mod</div>
+                </div>
+            </Link>
+                )
+            }
           <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
             {/* <!-- Hamburger Toggle BTN --> */}
             <button
@@ -37,7 +55,8 @@ const Header = ({sidebarOpen,  setSidebarOpen}) => {
                     className={`relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
                         !sidebarOpen && "!w-full delay-500"
                     }`}
-                ></span>
+                >
+                </span>
               </span>
               <span className="absolute right-0 h-full w-full rotate-45">
                 <span
@@ -59,10 +78,25 @@ const Header = ({sidebarOpen,  setSidebarOpen}) => {
             {/*  <Image*/}
             {/*      width={32}*/}
             {/*      height={32}*/}
-            {/*      src={"/images/logo/logo-icon.svg"}*/}
+            {/*      src={"/cloudmod-icon.svg"}*/}
             {/*      alt="Logo"*/}
             {/*  />*/}
             {/*</Link>*/}
+
+              <Link href="/">
+                  <div className={'flex items-center justify-center space-x-2 '}>
+                      <Image
+                          width={32}
+                          // width={176}
+                          height={32}
+                          src={"/cloudmod-icon.svg"}
+                          alt="Logo"
+                          priority
+                      />
+                      <div>Cloud Mod</div>
+                  </div>
+              </Link>
+
           </div>
           <div className={'hidden sm:block'}/>
           <div className="flex items-center gap-3 2xsm:gap-7">
