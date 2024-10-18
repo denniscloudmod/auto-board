@@ -11,6 +11,9 @@ import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { invokeBedrockAgent } from "@/actions/invoke-agent";
+import {generateProjectPlan} from "@/actions/project-plan";
+import {generateUserId} from "@/utils/helpers";
+import {saveProjectPlan} from "@/actions/project-plan/create";
 
 const QuestionnaireForm = () => {
     const route = useRouter();
@@ -18,53 +21,16 @@ const QuestionnaireForm = () => {
     const form = useForm({
         resolver: zodResolver(QuestionnaireFormSchema),
         defaultValues: {
-           numberofSprings: "",
-           tensionControlSystemType: "",
-           safetyFeatures: "",
+           awsTasksApplications: "",
+           primaryBusinessObjectiveGoals: "",
+            existingInfrastructure: "",
+           scalabilityPerformanceRequirements: "",
+           securityComplianceGovernance: "",
         },
     });
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const generateSessionId = () => {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    };
-
-    const generatePlannerQuestionnaireId = () => {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    };
-
-    const generateCreatedAt = () => {
-        return new Date().toISOString().split('T')[0];
-    };
-
-    const generateUpdatedAt = () => {
-        return new Date().toISOString().split('T')[0];
-    };
-
-    const generateUserName = () => {
-        const adjectives = ["Quick", "Lazy", "Happy", "Sad", "Bright", "Dark"];
-        const nouns = ["Fox", "Dog", "Cat", "Mouse", "Bear", "Lion"];
-        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-        const randomNumber = Math.floor(Math.random() * 1000);
-        return `${randomAdjective} ${randomNoun}${randomNumber}`;
-    };
-
-    const generateUserData = () => {
-        return {
-            id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-            name: generateUserName()
-        };
-    };
-
-    const generateProjectName = () => {
-        const adjectives = ["Innovative", "Creative", "Agile", "Dynamic", "Smart", "Intelligent"];
-        const nouns = ["Project", "Solution", "Product", "Service", "System", "Platform"];
-        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-        return `${randomAdjective} ${randomNoun}`;
-    };
 
     const handleSendMessage = async (input, sessionId) => {
         try {
@@ -85,38 +51,45 @@ const QuestionnaireForm = () => {
     const onSubmit = async (data) => {
         setIsLoading(true);
 
+        const formData = {
+            tasks_applications : data.awsTasksApplications,
+            business_objectives : data.primaryBusinessObjectiveGoals,
+            existing_infrastructure : data.existingInfrastructure,
+            scalability_performance : data.scalabilityPerformanceRequirements,
+            security_compliance : data.securityComplianceGovernance
+            // other_requirements : data.
+        };
+
+
         try {
-            const sessionId = generateSessionId();
-            const plannerQuestionnaireData = {
-                projectName: generateProjectName(),
-                id: generatePlannerQuestionnaireId(),
-                owner: generateUserData(),
-                createdAt: generateCreatedAt(),
-                lastUpdated: generateUpdatedAt(),
-                data: [
-                    { question: "How  many springs can you produce?", answer: await handleSendMessage(data.numberofSprings, sessionId) },
-                    { question: "What type of tension control system do you have?", answer: await handleSendMessage(data.tensionControlSystemType, sessionId) },
-                    { question: "Do you have safety features", answer: await handleSendMessage(data.safetyFeatures, sessionId) }
-                ],
-                generatedPlan: null,
-                kanbanBoard: null
-            };
+            const generatePlanResponse = await generateProjectPlan(formData)
 
-            const existingQuestionnaires = JSON.parse(localStorage.getItem('plannerQuestionnaires')) || [];
-            existingQuestionnaires.push(plannerQuestionnaireData);
+            const savePlanResponse = await saveProjectPlan({
+                userId : "e16575cd-e9d3-47d5-b3ba-d3ef612f5683",
+                content : generatePlanResponse
+            })
 
-            localStorage.setItem('plannerQuestionnaires', JSON.stringify(existingQuestionnaires));
+            // 'e16575cd-e9d3-47d5-b3ba-d3ef612f5683', generatePlanResponse
+
+            console.log("savedPlan", savePlanResponse.data)
+
+            console.log("Form generate plan data", generatePlanResponse)
             toast({
                 // title: "Submitted successfully:",
                 description: (
                     <div className={'p-2 bg-green-600 rounded text-white'}>
-                        Please wait while we generate the project plan for you.
+                        {/*Please wait while we generate the project plan for you.*/}
+                        Plan generated and saved successfully.
                     </div>
                 ),
             });
-            console.log("Questionnaire data:", existingQuestionnaires);
-            // route.push('/project-planner');
-            route.push('/project-planner/editor?projectId=' + plannerQuestionnaireData.id);
+
+
+            // form.reset()
+
+            // console.log("Questionnaire data:", existingQuestionnaires);
+            route.push('/project-planner');
+            // route.push('/project-planner/editor?projectId=' + plannerQuestionnaireData.id);
         } catch (error) {
             console.error('Error saving questionnaire data:', error);
             toast({
@@ -130,18 +103,19 @@ const QuestionnaireForm = () => {
     };
 
     return (
-        <div className="w-1/3 mx-auto mt-10 ">
+        <div className="w-2/3 lg:w-1/2 mx-auto mt-10 ">
+        {/*<div className="w-1/3 mx-auto mt-10 ">*/}
             <h1 className={'my-10 font-bold text-center text-xl'}>Project Planner Questionnaire</h1>
-            <div className="shadow-md p-10 rounded">
+            <div className="shadow-md p-10 rounded bg-white">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <div className="grid gap-6">
                             <FormField
                                 control={form.control}
-                                name="numberofSprings"
+                                name="awsTasksApplications"
                                 render={({field}) => (
                                     <FormItem>
-                                        <FormLabel>Number of springs</FormLabel>
+                                        <FormLabel>What specific tasks, applications, or processes do you plan to run on AWS?</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
@@ -149,7 +123,14 @@ const QuestionnaireForm = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="How  many springs can you produce?">How  many springs can you produce?</SelectItem>
+                                                {/*<SelectItem value="How  many springs can you produce?">How  many springs can you produce?</SelectItem>*/}
+                                                <SelectItem value="Hosting a website">Hosting a website</SelectItem>
+                                                <SelectItem value="Running a database">Running a database</SelectItem>
+                                                <SelectItem value="Processing large amounts of data">Processing large amounts of data</SelectItem>
+                                                <SelectItem value="Backup and disaster recovery">Backup and disaster recovery</SelectItem>
+                                                <SelectItem value="AI/ML workloads">AI/ML workloads</SelectItem>
+                                                <SelectItem value="e-commerce platform">E-commerce platform</SelectItem>
+                                                <SelectItem value="Other">Others</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />
@@ -158,10 +139,10 @@ const QuestionnaireForm = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="tensionControlSystemType"
+                                name="primaryBusinessObjectiveGoals"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Type of tension control system</FormLabel>
+                                        <FormLabel>What are your primary business objectives and goals for this project?</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
@@ -169,7 +150,11 @@ const QuestionnaireForm = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="What type of tension control system do you have?">What type of tension control system do you have?</SelectItem>
+                                                <SelectItem value="We have on-premise servers.">We have on-premise servers.</SelectItem>
+                                                <SelectItem value="We use another cloud provider">We use another cloud provider</SelectItem>
+                                                <SelectItem value="We're starting from scratch">We&apos;re starting from scratch</SelectItem>
+                                                <SelectItem value="We're not sure">We&apos;re not sure</SelectItem>
+                                                <SelectItem value="Other">Other</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />
@@ -178,10 +163,10 @@ const QuestionnaireForm = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="safetyFeatures"
+                                name="existingInfrastructure"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Safety features</FormLabel>
+                                        <FormLabel>Do you have any existing infrastructure, and how do you plan to integrate or migrate it to AWS?</FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
@@ -189,7 +174,58 @@ const QuestionnaireForm = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="Do you have safety features ?">Do you have safety features ?</SelectItem>
+                                                <SelectItem value="We have on-premise servers.">We have on-premise servers.</SelectItem>
+                                                <SelectItem value="We use another cloud provider">We use another cloud provider</SelectItem>
+                                                <SelectItem value="We're starting from scratch">We&apos;re starting from scratch</SelectItem>
+                                                <SelectItem value="We're not sure">We&apos;re not sure</SelectItem>
+                                                <SelectItem value="Other">Other</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="scalabilityPerformanceRequirements"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>What are your scalability and performance requirements?</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="Handle seasonal spikes in traffic">Handle seasonal spikes in traffic</SelectItem>
+                                                <SelectItem value="Support a growing number of users">Support a growing number of users</SelectItem>
+                                                <SelectItem value="Maintain fast response times under heavy load">Maintain fast response times under heavy load</SelectItem>
+                                                <SelectItem value="Other">Other</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="securityComplianceGovernance"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>What are your security, compliance, and governance requirements?</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="Data encryption">Data encryption</SelectItem>
+                                                <SelectItem value="Sser access control">Sser access control</SelectItem>
+                                                <SelectItem value="compliance with specific regulations (e.g., GDPR, HIPAA)">compliance with specific regulations (e.g., GDPR, HIPAA)</SelectItem>
+                                                <SelectItem value="Audit trails">Audit trails</SelectItem>
+                                                <SelectItem value="others">Others</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />

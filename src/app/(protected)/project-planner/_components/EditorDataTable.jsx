@@ -3,33 +3,63 @@
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
+import {getProjectPlans} from "@/actions/project-plan";
+import {useEffect, useState} from "react";
 
 const EditorDataTable = ({ columns }) => {
+
     const router = useRouter();
 
-    const getProjectsFromLocalStorage = () => {
-        if (typeof window === "undefined") {
-            return [];
-        }
+    // const getProjectsFromLocalStorage = () => {
+    //     if (typeof window === "undefined") {
+    //         return [];
+    //     }
+    //
+    //     const data = localStorage.getItem('plannerQuestionnaires');
+    //     if (!data) {
+    //         return [];
+    //     }
+    //
+    //     const parsedData = JSON.parse(data);
+    //
+    //     return parsedData.map(project => ({
+    //         id: project.id,
+    //         projectName: project.projectName,
+    //         owner: project.owner.name,
+    //         createdAt: project.createdAt,
+    //         lastUpdated: project.lastUpdated
+    //     }));
+    // };
 
-        const data = localStorage.getItem('plannerQuestionnaires');
-        if (!data) {
-            return [];
-        }
+    const [tableData, setTableData] = useState([]);
 
-        const parsedData = JSON.parse(data);
-
-        return parsedData.map(project => ({
+    const fetchPlans = async () => {
+        const { data} = await getProjectPlans();
+        // console.log('dataaaa', data)
+        return data.map(project => ({
             id: project.id,
-            projectName: project.projectName,
-            owner: project.owner.name,
+            projectName: "T",
+            // projectName: project.projectName,
+            owner: project.userId,
+            // owner: project.owner.name,
             createdAt: project.createdAt,
-            lastUpdated: project.lastUpdated
+            lastUpdated: project.updatedAt
         }));
     };
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const result = await getProjectPlans();
+    //         setTableData(result?.data);
+    //     };
+    //     fetchData();
+    // }, []);
+
+    // console.log('tableData', tableData);
+
     const table = useReactTable({
-        data: getProjectsFromLocalStorage(),
+        data: fetchPlans(),
+        // data: getProjectsFromLocalStorage(),
         columns,
         getCoreRowModel: getCoreRowModel(),
     });

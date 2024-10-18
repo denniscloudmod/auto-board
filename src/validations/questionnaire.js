@@ -13,13 +13,19 @@ import { z } from 'zod';
 // });
 
 export const QuestionnaireFormSchema = z.object({
-    numberofSprings: z.string().min(1, {
+    awsTasksApplications: z.string().min(1, {
         message: 'Field is required',
     }),
-    tensionControlSystemType: z.string().min(1, {
+    primaryBusinessObjectiveGoals: z.string().min(1, {
         message: 'Field is required'
     }),
-    safetyFeatures: z.string().min(1 , {
+    scalabilityPerformanceRequirements: z.string().min(1 , {
+        message: 'Field is required'
+    }),
+    securityComplianceGovernance: z.string().min(1 , {
+        message: 'Field is required'
+    }),
+    existingInfrastructure: z.string().min(1 , {
         message: 'Field is required'
     })
 });
