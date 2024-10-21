@@ -9,8 +9,11 @@ import { generateSessionId } from "@/utils/helpers";
 import {getProjectPlan} from "@/actions/project-plan/detail";
 import {MDXRemote} from "next-mdx-remote/rsc";
 import MdxChatText from "@/app/(protected)/project-planner/chat/[chatId]/_component/MDXChatText";
+import {useRouter} from "next/navigation";
 
 const PlannerChat = ({chatId}) => {
+
+    const route = useRouter()
 
 
     // const [planText, setPlanText] = useState(null)
@@ -77,7 +80,7 @@ const PlannerChat = ({chatId}) => {
     const handleSaveAll = () => {
         setIsSavingAll(true)
         try {
-
+            route.push("/project-planner")
         } catch (error){
 
         } finally {
