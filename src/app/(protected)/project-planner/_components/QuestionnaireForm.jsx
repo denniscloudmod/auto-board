@@ -11,12 +11,17 @@ import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { invokeBedrockAgent } from "@/actions/invoke-agent";
-import {generateProjectPlan} from "@/actions/project-plan";
 import {generateUserId} from "@/utils/helpers";
 import {saveProjectPlan} from "@/actions/project-plan/create";
+import {Input} from "@/components/ui/input";
+import {generateProjectPlan} from "@/actions/project-plan/generate-plan";
 
 const QuestionnaireForm = () => {
     const route = useRouter();
+
+    const [plan, setPlan] = useState(null)
+
+
 
     const form = useForm({
         resolver: zodResolver(QuestionnaireFormSchema),
@@ -26,6 +31,7 @@ const QuestionnaireForm = () => {
             existingInfrastructure: "",
            scalabilityPerformanceRequirements: "",
            securityComplianceGovernance: "",
+           projectTitle: "Untitled",
         },
     });
 
@@ -56,7 +62,8 @@ const QuestionnaireForm = () => {
             business_objectives : data.primaryBusinessObjectiveGoals,
             existing_infrastructure : data.existingInfrastructure,
             scalability_performance : data.scalabilityPerformanceRequirements,
-            security_compliance : data.securityComplianceGovernance
+            security_compliance : data.securityComplianceGovernance,
+            title : data.projectTitle
             // other_requirements : data.
         };
 
@@ -65,6 +72,7 @@ const QuestionnaireForm = () => {
             const generatePlanResponse = await generateProjectPlan(formData)
 
             const savePlanResponse = await saveProjectPlan({
+                title: data.projectTitle,
                 userId : "e16575cd-e9d3-47d5-b3ba-d3ef612f5683",
                 content : generatePlanResponse
             })
@@ -88,7 +96,8 @@ const QuestionnaireForm = () => {
             // form.reset()
 
             // console.log("Questionnaire data:", existingQuestionnaires);
-            route.push('/project-planner');
+            route.push(`/project-planner/chat/${savePlanResponse.data.id}`);
+            // route.push('/project-planner');
             // route.push('/project-planner/editor?projectId=' + plannerQuestionnaireData.id);
         } catch (error) {
             console.error('Error saving questionnaire data:', error);
@@ -112,6 +121,19 @@ const QuestionnaireForm = () => {
                         <div className="grid gap-6">
                             <FormField
                                 control={form.control}
+                                name="projectTitle"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Project Title</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Enter project title" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
                                 name="awsTasksApplications"
                                 render={({field}) => (
                                     <FormItem>
@@ -123,7 +145,6 @@ const QuestionnaireForm = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                {/*<SelectItem value="How  many springs can you produce?">How  many springs can you produce?</SelectItem>*/}
                                                 <SelectItem value="Hosting a website">Hosting a website</SelectItem>
                                                 <SelectItem value="Running a database">Running a database</SelectItem>
                                                 <SelectItem value="Processing large amounts of data">Processing large amounts of data</SelectItem>
@@ -150,10 +171,11 @@ const QuestionnaireForm = () => {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="We have on-premise servers.">We have on-premise servers.</SelectItem>
-                                                <SelectItem value="We use another cloud provider">We use another cloud provider</SelectItem>
-                                                <SelectItem value="We're starting from scratch">We&apos;re starting from scratch</SelectItem>
-                                                <SelectItem value="We're not sure">We&apos;re not sure</SelectItem>
+                                                <SelectItem value="Increase revenue">Increase revenue</SelectItem>
+                                                <SelectItem value="improve customer experience">Improve customer experience</SelectItem>
+                                                <SelectItem value="reduce costs">Reduce costs</SelectItem>
+                                                <SelectItem value="enhance security">Enhance security</SelectItem>
+                                                <SelectItem value="scale operations">Scale operations</SelectItem>
                                                 <SelectItem value="Other">Other</SelectItem>
                                             </SelectContent>
                                         </Select>

@@ -1,0 +1,1 @@
+ALTER TABLE "project_plan" ALTER COLUMN "title" SET NOT NULL;

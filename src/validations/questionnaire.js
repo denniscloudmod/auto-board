@@ -13,6 +13,9 @@ import { z } from 'zod';
 // });
 
 export const QuestionnaireFormSchema = z.object({
+    projectTitle: z.string().min(1, {
+        message: "Field is required"
+    }),
     awsTasksApplications: z.string().min(1, {
         message: 'Field is required',
     }),

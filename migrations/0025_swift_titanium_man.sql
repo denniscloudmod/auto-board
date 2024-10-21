@@ -1,0 +1,1 @@
+ALTER TABLE "project_plan" ADD COLUMN "title" varchar(255) NOT NULL;

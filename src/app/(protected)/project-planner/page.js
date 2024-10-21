@@ -1,7 +1,6 @@
 import React from 'react';
 import CreateListPlanner from "@/app/(protected)/project-planner/_components/CreateListPlanner";
-import DataTable from "@/app/(protected)/project-planner/_components/DataTable";
-import {projectColumns, projectEditorColumns} from "@/app/(protected)/project-planner/_components/Columns";
+import {projectPlannerColumns} from "@/app/(protected)/project-planner/_components/Columns";
 import EditorDataTable from "@/app/(protected)/project-planner/_components/EditorDataTable";
 import PortalContainer from "@/app/(protected)/_components/PortalContainer";
 
@@ -21,7 +20,7 @@ const Page = () => {
         <PortalContainer>
             <CreateListPlanner>
                 <div className="container mx-auto py-10">
-                    <EditorDataTable columns={projectEditorColumns}/>
+                    <EditorDataTable columns={projectPlannerColumns}/>
                 </div>
             </CreateListPlanner>
         </PortalContainer>

@@ -3,70 +3,58 @@
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
-import {getProjectPlans} from "@/actions/project-plan";
 import {useEffect, useState} from "react";
+import {getProjectPlans} from "@/actions/project-plan/all";
+import {Loader2} from "lucide-react";
 
 const EditorDataTable = ({ columns }) => {
 
     const router = useRouter();
 
-    // const getProjectsFromLocalStorage = () => {
-    //     if (typeof window === "undefined") {
-    //         return [];
-    //     }
-    //
-    //     const data = localStorage.getItem('plannerQuestionnaires');
-    //     if (!data) {
-    //         return [];
-    //     }
-    //
-    //     const parsedData = JSON.parse(data);
-    //
-    //     return parsedData.map(project => ({
-    //         id: project.id,
-    //         projectName: project.projectName,
-    //         owner: project.owner.name,
-    //         createdAt: project.createdAt,
-    //         lastUpdated: project.lastUpdated
-    //     }));
-    // };
-
     const [tableData, setTableData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const fetchPlans = async () => {
-        const { data} = await getProjectPlans();
-        // console.log('dataaaa', data)
-        return data.map(project => ({
-            id: project.id,
-            projectName: "T",
-            // projectName: project.projectName,
-            owner: project.userId,
-            // owner: project.owner.name,
-            createdAt: project.createdAt,
-            lastUpdated: project.updatedAt
-        }));
-    };
+    useEffect(() => {
+        const fetchPlans = async () => {
+            try {
+                setIsLoading(true);
+                const { data } = await getProjectPlans();
+                const fetchData = data.map(project => ({
+                    id: project.id,
+                    title: project.title,
+                    createdAt: project.createdAt.toLocaleString(),
+                    updatedAt: project.updatedAt.toLocaleString()
+                }));
+                setTableData(fetchData);
+            } catch (error) {
+                console.error("Error fetching project plans:", error);
+                // Optionally, you can set an error state here and display it to the user
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchPlans();
+    }, []);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const result = await getProjectPlans();
-    //         setTableData(result?.data);
-    //     };
-    //     fetchData();
-    // }, []);
-
-    // console.log('tableData', tableData);
 
     const table = useReactTable({
-        data: fetchPlans(),
-        // data: getProjectsFromLocalStorage(),
+        data: tableData,
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
 
     const handleRowClick = (projectId) => {
-        router.push(`/project-planner/editor/${projectId}`);
+        router.push(`/project-planner/docs/${projectId}`);
+        // router.push(`/project-planner/editor/${projectId}`);
     };
+
+    if (isLoading) {
+        return (
+            <div className={'flex items-center justify-center mt-1/2'}>
+                <Loader2 className={'animate-spin w-4 h-4'}/>
+            </div>
+        );
+    }
 
     return (
         <div className="rounded-md border shadow-md">
@@ -93,7 +81,7 @@ const EditorDataTable = ({ columns }) => {
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
-                                // onClick={() => handleRowClick(row.original.id)}
+                                onClick={() => handleRowClick(row.original.id)}
                                 className="cursor-pointer"
                             >
                                 {row.getVisibleCells().map((cell) => (

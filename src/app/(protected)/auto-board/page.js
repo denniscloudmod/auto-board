@@ -1,8 +1,6 @@
 import React from 'react';
 import AutoBoardCreateList from "@/app/(protected)/auto-board/_component/AutoBoardCreateList";
 import WorkSpaceBackButton from "@/components/WorkSpaceBackButton";
-import DataTable from "@/app/(protected)/project-planner/_components/DataTable";
-import {projectColumns} from "@/app/(protected)/project-planner/_components/Columns";
 import PortalContainer from "@/app/(protected)/_components/PortalContainer";
 
 export const metadata = {
