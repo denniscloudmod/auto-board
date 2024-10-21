@@ -8,9 +8,8 @@ import { Loader2, SendIcon, AlertTriangle } from "lucide-react";
 import { generateSessionId } from "@/utils/helpers";
 import {getProjectPlan} from "@/actions/project-plan/detail";
 
-const PlannerChat = ({params}) => {
+const PlannerChat = ({chatId}) => {
 
-    const {chatId} = params;
 
     // const [planText, setPlanText] = useState(null)
 

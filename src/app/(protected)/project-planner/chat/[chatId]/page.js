@@ -3,9 +3,11 @@ import React from 'react';
 
 import PlannerChat from "@/app/(protected)/project-planner/chat/[chatId]/_component/PlannerChat";
 
-const Page = () => {
+const Page = ({params}) => {
+    const {chatId} = params;
+
     return (
-        <PlannerChat/>
+        <PlannerChat chatId={chatId}/>
     );
 };
 
