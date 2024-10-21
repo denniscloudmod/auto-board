@@ -15,23 +15,21 @@ import {generateUserId} from "@/utils/helpers";
 import {saveProjectPlan} from "@/actions/project-plan/create";
 import {Input} from "@/components/ui/input";
 import {generateProjectPlan} from "@/actions/project-plan/generate-plan";
+import {Textarea} from "@/components/ui/textarea";
 
 const QuestionnaireForm = () => {
     const route = useRouter();
 
-    const [plan, setPlan] = useState(null)
-
-
-
     const form = useForm({
         resolver: zodResolver(QuestionnaireFormSchema),
         defaultValues: {
-           awsTasksApplications: "",
+            projectTitle: "Untitled",
+            awsTasksApplications: "",
            primaryBusinessObjectiveGoals: "",
             existingInfrastructure: "",
            scalabilityPerformanceRequirements: "",
            securityComplianceGovernance: "",
-           projectTitle: "Untitled",
+            otherRequirements: ""
         },
     });
 
@@ -58,14 +56,17 @@ const QuestionnaireForm = () => {
         setIsLoading(true);
 
         const formData = {
+            project_name: data.projectTitle,
             tasks_applications : data.awsTasksApplications,
             business_objectives : data.primaryBusinessObjectiveGoals,
             existing_infrastructure : data.existingInfrastructure,
             scalability_performance : data.scalabilityPerformanceRequirements,
             security_compliance : data.securityComplianceGovernance,
-            title : data.projectTitle
-            // other_requirements : data.
+            // title : data.projectTitle
+            other_requirements : data.otherRequirements
         };
+
+        console.log("formData", formData)
 
 
         try {
@@ -250,6 +251,19 @@ const QuestionnaireForm = () => {
                                                 <SelectItem value="others">Others</SelectItem>
                                             </SelectContent>
                                         </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="otherRequirements"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Other Requirements (Optional)</FormLabel>
+                                        <FormControl>
+                                            <Textarea placeholder="Others" {...field} />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}

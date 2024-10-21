@@ -30,5 +30,6 @@ export const QuestionnaireFormSchema = z.object({
     }),
     existingInfrastructure: z.string().min(1 , {
         message: 'Field is required'
-    })
+    }),
+    otherRequirements: z.string().optional()
 });

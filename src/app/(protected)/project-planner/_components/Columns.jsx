@@ -111,11 +111,11 @@ export const projectPlannerColumns = [
                 <div className="flex gap-2">
                     <Button
                         className={'bg-black text-white'}>
-                        <Link href={`#`}>Create Kanban</Link>
+                        <Link href={`#`}>Create Autoboard </Link>
                         {/*<Link href={`/project-planner/${row.original.id}`}>Create Kanban</Link>*/}
                     </Button>
                     <Button asChild variant={'outline'}>
-                        <Link href={`/project-planner/docs/${row.original.id}`}>Docs</Link>
+                        <Link href={`/project-planner/docs/${row.original.id}`}>Create static CMS</Link>
                     </Button>
                 </div>
             )
