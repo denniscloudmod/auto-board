@@ -115,7 +115,8 @@ export const projectPlannerColumns = [
                         {/*<Link href={`/project-planner/${row.original.id}`}>Create Kanban</Link>*/}
                     </Button>
                     <Button asChild variant={'outline'}>
-                        <Link href={`/project-planner/docs/${row.original.id}`}>Create static CMS</Link>
+                        <Link href={`https://cms-plum-omega.vercel.app/?id=${row.original.id}`}>Create static CMS</Link>
+                        {/*<Link href={`/project-planner/docs/${row.original.id}`}>Create static CMS</Link>*/}
                     </Button>
                 </div>
             )

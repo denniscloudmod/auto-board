@@ -81,7 +81,7 @@ const EditorDataTable = ({ columns }) => {
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
-                                onClick={() => handleRowClick(row.original.id)}
+                                // onClick={() => handleRowClick(row.original.id)}
                                 className="cursor-pointer"
                             >
                                 {row.getVisibleCells().map((cell) => (
