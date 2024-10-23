@@ -8,8 +8,6 @@ import {eq} from "drizzle-orm";
 export const deleteProjectPlan = async (id) => {
     try {
         const result = await db.delete(projectPlan).where(eq(projectPlan.id, id)).returning()
-
-        console.log("Questionnaire data:", result);
         return {
             data: result[0],
             status: 200,

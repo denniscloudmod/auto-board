@@ -7,23 +7,12 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import {Loader2, SendIcon, AlertTriangle, SaveAllIcon} from "lucide-react";
 import { generateSessionId } from "@/utils/helpers";
 import {getProjectPlan} from "@/actions/project-plan/detail";
-import {MDXRemote} from "next-mdx-remote/rsc";
-import MdxChatText from "@/app/(protected)/project-planner/chat/[chatId]/_component/MDXChatText";
 import {useRouter} from "next/navigation";
+import MdxChatText from "@/app/(protected)/project-planner/chat/[chatId]/_component/MDXChatText";
 
 const PlannerChat = ({chatId}) => {
 
     const route = useRouter()
-
-
-    // const [planText, setPlanText] = useState(null)
-
-
-
-    // if (!planText){
-    //     return <div className={'flex items-center justify-center'}><Loader2 className={'animate-spin w-5 h-5'}/></div>
-    // }
-
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [editIndex, setEditIndex] = useState(null);
@@ -91,22 +80,24 @@ const PlannerChat = ({chatId}) => {
     return (
         <div className={'flex flex-col p-6 min-h-screen w-full max-w-3xl mx-auto space-y-4'}>
             <div className="flex items-center justify-center ">
-            {/*<div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-6">*/}
-            {/*    <div className="flex flex-col w-full max-w-3xl h-[80%] bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">*/}
             <div className="flex flex-col w-full h-[85vh] bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-            {/*<div className="flex flex-col w-full max-w-3xl h-[85vh] bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">*/}
 
                 <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-white">
                     {messages?.map((message, index) => (
                         <div key={index} className={`relative flex items-center p-3 rounded-lg max-w-xs md:max-w-md lg:max-w-2xl transition-all duration-200 ${
-                        // <div key={index} className={`relative flex items-center p-3 rounded-lg max-w-xs md:max-w-md transition-all duration-200 ${
                             message.sender === 'user'
                                 ? 'bg-black text-white dark:bg-gray-600 self-end'
                                 : 'bg-gray-100 text-gray-900 self-start'
                         }`}
                         >
-                            {message.text}
-                            {/*<MdxChatText source={message.text}/>*/}
+                            {message.sender === 'ai' ? (
+                                <div>
+                                    <MdxChatText source={message.text}/>
+                                </div>
+                            ) : (
+                                message.text
+                            )}
+
                             {message.sender === 'user' && (
                                 <div
                                     className="ml-2 text-sm cursor-pointer absolute top-1 right-1"
