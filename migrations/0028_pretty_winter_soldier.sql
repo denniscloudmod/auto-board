@@ -1,0 +1,1 @@
+ALTER TABLE "project_plan" ADD COLUMN "has_kanban" integer DEFAULT 0;

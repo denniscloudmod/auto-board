@@ -97,3 +97,96 @@ export const kanbanMessages = {
 
     }
 }
+
+
+
+export const markDownSampleData = `
+
+# Ecommerce Platform Project
+
+**Data Processing:**    
+* Design and implement data processing pipelines
+* Optimize data processing algorithms
+* Integrate real-time data processing
+
+**Customer Experience:**    
+* Design and develop user-friendly interface    
+* Implement personalized product recommendations    
+* Integrate real-time chat support  
+
+**Scalability and Performance:**    
+* Design and deploy horizontally scalable architecture    
+* Optimize database queries and indexing    
+* Implement caching strategies 
+
+**Security Compliance:**    
+* Design and implement data encryption strategies    
+* Implement access control and authentication    
+* Regularly perform security audits and vulnerability assessments
+
+`;
+
+
+export const markDownSampleData2 = `
+
+# Ecommerce Platform Project
+**System Name:** 
+Custom Ecommerce Platform
+
+**System Description:**
+Our custom ecommerce platform is designed to processlarge amounts of data, improve customer experience, and maintain
+ fast responsetimes under heavy load. It will be compliant with specific regulations, suchas GDPR and HIPAA, 
+ and will be hosted on a cloud provider different from ourcurrent one for better scalability and performance.
+
+## Tasks
+**Task Description:**
+The following tasks are required to build and deploy ourcustom ecommerce platform.
+
+**Data Processing:**    
+* Design and implement data processing pipelines
+* Optimize data processing algorithms
+* Integrate real-time data processing
+
+**Customer Experience:**    
+* Design and develop user-friendly interface    
+* Implement personalized product recommendations    
+* Integrate real-time chat support  
+
+**Scalability and Performance:**    
+* Design and deploy horizontally scalable architecture    
+* Optimize database queries and indexing    
+* Implement caching strategies 
+
+**Security Compliance:**    
+* Design and implement data encryption strategies    
+* Implement access control and authentication    
+* Regularly perform security audits and vulnerability assessments
+
+`;
+
+
+`
+#Ecommerce Platform Project
+
+**Data Processing:**    
+*Design and implement data processing pipelines
+*Optimize data processing algorithms
+*Integrate real-time data processing
+
+**Customer Experience:**    
+*Design and develop user-friendly interface    
+*Implement personalized product recommendations    
+*Integrate real-time chat support  
+
+**Scalability and Performance:**    
+*Design and deploy horizontally scalable architecture    
+*Optimize database queries and indexing    
+*Implement caching strategies 
+
+**Security Compliance:**    
+*Design and implement data encryption strategies    
+*Implement access control and authentication    
+*Regularly perform security audits and vulnerability assessments
+`
+
+

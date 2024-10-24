@@ -7,6 +7,7 @@ import Link from "next/link";
 import {Transition, Menu} from "@headlessui/react";
 import {deleteProjectPlan} from "@/actions/project-plan/destroy";
 import {useToast} from "@/hooks/use-toast";
+import ProjectPlanKanbanGenerator from "@/app/(protected)/project-planner/_components/ProjectPlanKanbanGenerator";
 
 const PlannerWorkspaceTable = () => {
 
@@ -73,9 +74,11 @@ const PlannerWorkspaceTable = () => {
                         <td className="px-4 py-2 border">{project.updatedAt.toLocaleString()}</td>
                         <td className="px-4 py-2 border flex items-center justify-center space-x-2 text-sm">
                             <div className={'flex-1 flex items-center justify-center space-x-2 text-sm'}>
-                                <Button asChild className="bg-black text-white px-2 py-1 rounded hover:bg-gray-500">
-                                    <Link href={`#`}>Create Autoboard </Link>
-                                </Button>
+                                {/*<Button asChild className="bg-black text-white px-2 py-1 rounded hover:bg-gray-500">*/}
+                                {/*    <Link href={`#`}>Create Autoboard </Link>*/}
+                                {/*</Button>*/}
+                                <ProjectPlanKanbanGenerator userId={'e16575cd-e9d3-47d5-b3ba-d3ef612f5683'} projectPlanData={project} />
+                                {/*<ProjectPlanKanbanGenerator userId={'e16575cd-e9d3-47d5-b3ba-d3ef612f5683'} projectPlanId={project.id} content={project.content}/>*/}
                                 <Button asChild className="bg-gray-200 px-4 py-2 rounded mr-2 hover:bg-gray-500 hover:text-white">
                                     <Link href={`https://cms-plum-omega.vercel.app/?id=${project.id}`}>Create static CMS</Link>
                                 </Button>

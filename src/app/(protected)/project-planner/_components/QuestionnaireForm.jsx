@@ -16,6 +16,7 @@ import {saveProjectPlan} from "@/actions/project-plan/create";
 import {Input} from "@/components/ui/input";
 import {generateProjectPlan} from "@/actions/project-plan/generate-plan";
 import {Textarea} from "@/components/ui/textarea";
+import {markDownSampleData} from "@/utils/constants";
 
 const QuestionnaireForm = () => {
     const route = useRouter();
@@ -75,7 +76,8 @@ const QuestionnaireForm = () => {
             const savePlanResponse = await saveProjectPlan({
                 title: data.projectTitle,
                 userId : "e16575cd-e9d3-47d5-b3ba-d3ef612f5683",
-                content : generatePlanResponse
+                content : markDownSampleData
+                // content : generatePlanResponse
             })
 
             // 'e16575cd-e9d3-47d5-b3ba-d3ef612f5683', generatePlanResponse

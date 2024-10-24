@@ -56,16 +56,6 @@ const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <div className="py-1">
-                                            {/*<button*/}
-                                            {/*    onClick={(e) => {*/}
-                                            {/*        e.stopPropagation();*/}
-                                            {/*        onEditBoard(board);*/}
-                                            {/*    }}*/}
-                                            {/*    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"*/}
-                                            {/*>*/}
-                                            {/*    <PencilSquareIcon className="h-4 w-4 inline-block mr-2" />*/}
-                                            {/*    Edit*/}
-                                            {/*</button>*/}
                                             <button
                                                 onClick={(e) => handleDeleteClick(e, board)}
                                                 className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
@@ -83,7 +73,7 @@ const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
             ))}
 
             <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                <AlertDialogContent>
+                <AlertDialogContent className={'bg-gray-100'}>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Are you sure you want to delete this board?</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -92,7 +82,7 @@ const BoardList = ({ boards, onEditBoard, onDeleteBoard }) => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleConfirmDelete} className="bg-red-600 hover:bg-red-700">
+                        <AlertDialogAction onClick={handleConfirmDelete} className="text-white bg-red-600 hover:bg-red-400">
                             Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>
