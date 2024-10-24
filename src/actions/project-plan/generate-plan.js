@@ -10,7 +10,7 @@ export const generateProjectPlan = async (data) => {
             body: JSON.stringify(data),
         });
 
-        // console.log("Response1", response);
+        console.log("Response1", response);
 
         if (!response.ok) {
             throw new Error("Failed to generate project plan");

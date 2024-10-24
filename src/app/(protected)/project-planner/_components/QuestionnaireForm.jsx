@@ -76,8 +76,8 @@ const QuestionnaireForm = () => {
             const savePlanResponse = await saveProjectPlan({
                 title: data.projectTitle,
                 userId : "e16575cd-e9d3-47d5-b3ba-d3ef612f5683",
-                content : markDownSampleData
-                // content : generatePlanResponse
+                // content : markDownSampleData
+                content : generatePlanResponse
             })
 
             // 'e16575cd-e9d3-47d5-b3ba-d3ef612f5683', generatePlanResponse
